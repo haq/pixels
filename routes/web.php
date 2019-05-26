@@ -19,7 +19,11 @@ Route::get('/', 'HomeController@index')->name('home');
 /*
  * Videos
  */
-Route::get('/videos', 'VideosController@index')->name('video.index');
-Route::get('/video', 'VideosController@create')->name('video.create');
-Route::get('/video/{id}', 'VideosController@show')->name('video.show');
-Route::post('/video/upload', 'VideosController@store')->name('video.upload');
+/*Route::get('/videos', 'VideosController@index')->name('video.index');
+Route::get('/videos', 'VideosController@create')->name('video.create');
+Route::get('/videos/{id}', 'VideosController@show')->name('video.show');
+Route::post('/videos/upload', 'VideosController@store')->name('video.upload');*/
+
+Route::resource('videos', 'VideosController')->except([
+    'update', 'destroy', 'edit'
+]);

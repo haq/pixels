@@ -5,7 +5,7 @@
         <h3 class="xt-center">
             Upload Video
         </h3>
-        <form method="post" action="{{ route('video.upload') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('videos.store') }}" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="video-title">Title</label>
                 <input type="text"

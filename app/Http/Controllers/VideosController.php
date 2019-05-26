@@ -6,6 +6,7 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
 use App\Video;
+use ErrorException;
 use Hashids\Hashids;
 use Mockery\Exception;
 
@@ -34,7 +35,7 @@ class VideosController extends Controller
             $videoId = $this->hashids->decode($id)[0];
             $video = Video::findOrFail($videoId);
             return view('video.show')->with('video', $video);
-        } catch (Exception $exception) {
+        } catch (ErrorException  $exception) {
             abort(404);
         }
     }
@@ -48,10 +49,11 @@ class VideosController extends Controller
             'title' => $request->title,
         ]);
 
-        ConvertVideoForStreaming::dispatch($video);
-        GenerateVideoThumbnail::dispatch($video);
+        ConvertVideoForStreaming::withChain([
+            new GenerateVideoThumbnail($video),
+        ])->dispatch($video);
 
-        return redirect('video/' . $this->hashids->encode($video->id))->with(
+        return redirect('videos/' . $this->hashids->encode($video->id))->with(
             'message',
             'Your video will be available shortly after we process it'
         );

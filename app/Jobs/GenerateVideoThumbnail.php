@@ -4,10 +4,10 @@ namespace App\Jobs;
 
 use App\Video;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class GenerateVideoThumbnail implements ShouldQueue
 {
@@ -23,12 +23,19 @@ class GenerateVideoThumbnail implements ShouldQueue
 
     public function handle()
     {
-        $media = FFMpeg::fromDisk($this->video->disk)
-            ->open($this->video->path);
+        /*   $media = FFMpeg::fromDisk($this->video->disk)
+               ->open($this->video->path);
 
-        $media->getFrameFromSeconds($media->getDurationInSeconds() / 2)
+           $media->getFrameFromSeconds($media->getDurationInSeconds() / 2)
+               ->export()
+               ->toDisk('streamable_videos')
+               ->save($this->video->id . '/frame.png');*/
+
+        FFMpeg::fromDisk($this->video->disk)
+            ->open($this->video->path)
+            ->getFrameFromSeconds(10)
             ->export()
             ->toDisk('streamable_videos')
-            ->save($this->video->id . '/frame.png');
+            ->save($this->video->id . '/thumbnail.png');
     }
 }

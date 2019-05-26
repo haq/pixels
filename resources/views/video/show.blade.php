@@ -2,23 +2,16 @@
 
 @section('content')
     <div class="container">
-        <h3 class="text-center">
-            {{ $video->title }}
-        </h3>
-
-        <div class="row mt-5">
-            <div class="video">
-                @if($video->processed())
-                    <video controls crossorigin playsinline
-                           poster="{{ $video->thumbnail() }}">
-                    </video>
-                @else
-                    <div class="alert alert-info w-100">
-                        Video is currently being processed and will be available shortly
-                    </div>
-                @endif
+        <h3>{{ $video->title }}</h3>
+        @if($video->processed())
+            <video controls crossorigin playsinline
+                   poster="{{ $video->thumbnail() }}">
+            </video>
+        @else
+            <div class="alert alert-info w-100">
+                Video is currently being processed and will be available shortly
             </div>
-        </div>
+        @endif
     </div>
 @endSection
 
