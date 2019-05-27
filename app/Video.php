@@ -17,6 +17,11 @@ class Video extends Model
 
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function processed(): bool
     {
         return $this->converted_for_streaming_at != null;

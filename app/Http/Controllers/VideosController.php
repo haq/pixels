@@ -6,9 +6,8 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
 use App\Video;
-use ErrorException;
+use Exception;
 use Hashids\Hashids;
-use Mockery\Exception;
 
 class VideosController extends Controller
 {
@@ -17,6 +16,9 @@ class VideosController extends Controller
     public function __construct()
     {
         $this->hashids = new Hashids();
+        $this->middleware('auth')->except([
+            'index', 'show'
+        ]);
     }
 
     public function index()
@@ -35,7 +37,7 @@ class VideosController extends Controller
             $videoId = $this->hashids->decode($id)[0];
             $video = Video::findOrFail($videoId);
             return view('video.show')->with('video', $video);
-        } catch (ErrorException  $exception) {
+        } catch (Exception  $exception) {
             abort(404);
         }
     }
@@ -43,10 +45,10 @@ class VideosController extends Controller
     public function store(StoreVideoRequest $request)
     {
         $video = Video::create([
-            'disk' => 'videos_disk',
-            'original_name' => $request->video->getClientOriginalName(),
-            'path' => $request->video->store('videos', 'videos_disk'),
+            'user_id' => auth()->id(),
             'title' => $request->title,
+            'disk' => 'videos_disk',
+            'path' => $request->video->store('videos', 'videos_disk'),
         ]);
 
         ConvertVideoForStreaming::withChain([
