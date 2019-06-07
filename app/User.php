@@ -2,13 +2,15 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Overtrue\LaravelFollow\Traits\CanBeSubscribed;
+use Overtrue\LaravelFollow\Traits\CanSubscribe;
+use Overtrue\LaravelFollow\Traits\CanVote;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, CanSubscribe, CanBeSubscribed, CanVote;
 
     protected $fillable = [
         'name', 'email', 'password',

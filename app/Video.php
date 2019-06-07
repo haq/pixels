@@ -5,12 +5,17 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Overtrue\LaravelFollow\Traits\CanBeVoted;
 
 /**
  * @property Carbon converted_for_streaming_at
+ * @property mixed disk
+ * @property mixed path
  */
 class Video extends Model
 {
+    use CanBeVoted;
+
     protected $dates = [
         'converted_for_streaming_at'
     ];

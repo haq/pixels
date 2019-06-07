@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property string title
+ * @property mixed video
+ */
 class StoreVideoRequest extends FormRequest
 {
     /**
