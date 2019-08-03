@@ -14,7 +14,7 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'ProfileController@index')->name('home');
 
 /*
  * Videos
