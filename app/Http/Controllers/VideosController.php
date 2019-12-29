@@ -48,7 +48,7 @@ class VideosController extends Controller
             'user_id' => auth()->id(),
             'title' => $request->title,
             'disk' => 'videos_disk',
-            'path' => $request->video->store('videos', 'videos_disk'),
+            'path' => $request->video->store(null, 'videos_disk'),
         ]);
 
         ConvertVideoForStreaming::withChain([
@@ -57,7 +57,7 @@ class VideosController extends Controller
 
         return redirect('videos/' . $this->hashids->encode($video->id))->with(
             'message',
-            'Your video will be available shortly after we process it'
+            'Your video will be available shortly after it is processed.'
         );
     }
 }

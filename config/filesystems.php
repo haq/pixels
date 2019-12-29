@@ -57,7 +57,7 @@ return [
 
         'videos_disk' => [
             'driver' => 'local',
-            'root' => storage_path('app/videos/original'),
+            'root' => storage_path('app/original'),
             'visibility' => 'private',
         ],
 

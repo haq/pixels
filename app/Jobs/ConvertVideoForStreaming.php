@@ -25,18 +25,14 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     public function handle()
     {
-        $lowBitrateFormat = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(1500);
-        $midBitrateFormat = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(2500);
-        $highBitrateFormat = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(5000);
-
         FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path)
             ->exportForHLS()
             ->dontSortFormats()
             ->toDisk('streamable_videos')
-            ->addFormat($lowBitrateFormat)
-            ->addFormat($midBitrateFormat)
-            ->addFormat($highBitrateFormat)
+            ->addFormat((new X264())->setKiloBitrate(1500))
+            ->addFormat((new X264())->setKiloBitrate(2500))
+            ->addFormat((new X264())->setKiloBitrate(5000))
             ->save($this->video->id . '/video.m3u8');
 
         $this->video->update([

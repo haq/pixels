@@ -17,9 +17,7 @@
                     @if($video->processed())
                         <img src="{{ $video->thumbnail() }}">
                     @else
-                        <div class="alert alert-info w-100">
-                            Video is currently being processed and will be available shortly
-                        </div>
+                        <img src="{{ $video->thumbnail() }}">
                     @endif
                 </div>
             </div>
