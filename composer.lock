@@ -1206,16 +1206,16 @@
         },
         {
             "name": "overtrue/laravel-follow",
-            "version": "2.0.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/laravel-follow.git",
-                "reference": "34de2965f154aecdcdfbb3755e1588ab17de9b08"
+                "reference": "6cda2b6a8af9013e726bfc59131fb7a689ae0b86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/laravel-follow/zipball/34de2965f154aecdcdfbb3755e1588ab17de9b08",
-                "reference": "34de2965f154aecdcdfbb3755e1588ab17de9b08",
+                "url": "https://api.github.com/repos/overtrue/laravel-follow/zipball/6cda2b6a8af9013e726bfc59131fb7a689ae0b86",
+                "reference": "6cda2b6a8af9013e726bfc59131fb7a689ae0b86",
                 "shasum": ""
             },
             "require": {
@@ -1262,7 +1262,7 @@
                 }
             ],
             "description": "User follow unfollow system for Laravel.",
-            "time": "2020-04-13T04:41:27+00:00"
+            "time": "2020-04-18T00:00:22+00:00"
         },
         {
             "name": "paragonie/random_compat",
