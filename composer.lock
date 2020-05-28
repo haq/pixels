@@ -103,20 +103,20 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.10.0",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62"
+                "reference": "35a4a70cd94e09e2259dfae7488afc6b474ecbd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/382e7f4db9a12dc6c19431743a2b096041bcdd62",
-                "reference": "382e7f4db9a12dc6c19431743a2b096041bcdd62",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/35a4a70cd94e09e2259dfae7488afc6b474ecbd3",
+                "reference": "35a4a70cd94e09e2259dfae7488afc6b474ecbd3",
                 "shasum": ""
             },
             "require": {
-                "php": "~7.1"
+                "php": "~7.1 || ^8.0"
             },
             "conflict": {
                 "doctrine/common": ">2.2,<2.4"
@@ -181,7 +181,7 @@
                 "redis",
                 "xcache"
             ],
-            "time": "2019-11-29T15:36:20+00:00"
+            "time": "2020-05-27T16:24:54+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1381,16 +1381,16 @@
         },
         {
             "name": "pbmedia/laravel-ffmpeg",
-            "version": "7.0.0",
+            "version": "7.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pascalbaljetmedia/laravel-ffmpeg.git",
-                "reference": "1f3291698592d3605b702f15f8d67d84d1b2c45a"
+                "reference": "3106f9ad875e6a815a16ea5b223d98156bf1334b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pascalbaljetmedia/laravel-ffmpeg/zipball/1f3291698592d3605b702f15f8d67d84d1b2c45a",
-                "reference": "1f3291698592d3605b702f15f8d67d84d1b2c45a",
+                "url": "https://api.github.com/repos/pascalbaljetmedia/laravel-ffmpeg/zipball/3106f9ad875e6a815a16ea5b223d98156bf1334b",
+                "reference": "3106f9ad875e6a815a16ea5b223d98156bf1334b",
                 "shasum": ""
             },
             "require": {
@@ -1451,7 +1451,7 @@
                 "protone media",
                 "protonemedia"
             ],
-            "time": "2020-05-26T06:38:43+00:00"
+            "time": "2020-05-28T11:06:36+00:00"
         },
         {
             "name": "php-ffmpeg/php-ffmpeg",
