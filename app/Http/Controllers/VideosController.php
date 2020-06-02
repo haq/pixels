@@ -55,9 +55,7 @@ class VideosController extends Controller
             new GenerateVideoThumbnail($video),
         ])->dispatch($video);
 
-        return redirect('videos/' . $this->hashids->encode($video->id))->with(
-            'message',
-            'Your video will be available shortly after it is processed.'
-        );
+        $hasCode = $this->hashids->encode($video->id);
+        return redirect("videos/$hasCode")->with('message', 'Your video will be available shortly after it is processed.');
     }
 }
