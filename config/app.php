@@ -165,8 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Pbmedia\LaravelFFMpeg\FFMpegServiceProvider::class,
-        Overtrue\LaravelFollow\FollowServiceProvider::class,
 
         /*
          * Application Service Providers...
