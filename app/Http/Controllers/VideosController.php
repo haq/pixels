@@ -47,15 +47,15 @@ class VideosController extends Controller
         $video = Video::create([
             'user_id' => auth()->id(),
             'title' => $request->title,
-            'disk' => 'videos_disk',
-            'path' => $request->video->store(null, 'videos_disk'),
+            'disk' => 'minio',
+            'path' => $request->video->store('original', 'minio')
         ]);
 
         ConvertVideoForStreaming::withChain([
             new GenerateVideoThumbnail($video),
         ])->dispatch($video);
 
-        $hasCode = $this->hashids->encode($video->id);
-        return redirect("videos/$hasCode")->with('message', 'Your video will be available shortly after it is processed.');
+        $hashcode = $this->hashids->encode($video->id);
+        return redirect("videos/$hashcode")->with('message', 'Your video will be available shortly after it is processed.');
     }
 }

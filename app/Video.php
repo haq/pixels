@@ -2,14 +2,13 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @property Carbon converted_for_streaming_at
- * @property mixed disk
- * @property mixed path
+ * @property timestamp converted_for_streaming_at
+ * @property string disk
+ * @property string path
  */
 class Video extends Model
 {
@@ -31,12 +30,12 @@ class Video extends Model
 
     public function video(): string
     {
-        return Storage::disk('streamable_videos')->url($this->id . '/video.m3u8');
+        return Storage::disk('minio')->url($this->id . '/video.m3u8');
     }
 
     public function thumbnail(): string
     {
-        return Storage::disk('streamable_videos')->url($this->id . '/thumbnail.png');
+        return Storage::disk('minio')->url($this->id . '/thumbnail.png');
     }
 
 }
