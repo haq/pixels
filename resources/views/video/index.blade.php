@@ -1,26 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 mr-auto ml-auto mt-5">
+    <div class="container">
         <h3 class="text-center">
             Videos
         </h3>
-
-        @foreach($videos as $video)
-            <div class="row mt-5">
-                <div class="video">
-                    <div class="title">
-                        <h4>
-                            {{ $video->title }}
-                        </h4>
+        <div class="row">
+            @foreach($videos as $video)
+                <div class="col-sm-6">
+                    <div class="card mb-3">
+                        <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $video->title }}</h5>
+                            <a href="{{ $video->url() }}" class="btn btn-primary">Watch</a>
+                        </div>
                     </div>
-                    @if($video->processed())
-                        <img src="{{ $video->thumbnail() }}">
-                    @else
-                        <img src="{{ $video->thumbnail() }}">
-                    @endif
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
+
     </div>
 @endSection

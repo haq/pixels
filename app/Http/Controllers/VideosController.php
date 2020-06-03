@@ -23,7 +23,7 @@ class VideosController extends Controller
 
     public function index()
     {
-        return view('video.index')->with('videos', Video::all());
+        return view('video.index')->with('videos', Video::orderBy('created_at', 'desc')->get());
     }
 
     public function create()

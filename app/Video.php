@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,14 +29,20 @@ class Video extends Model
         return $this->converted_for_streaming_at != null;
     }
 
+    public function url(): string
+    {
+        $hashids = new Hashids();
+        $hashcode = $hashids->encode($this->id);
+        return "/videos/$hashcode";
+    }
+
     public function video(): string
     {
-        return Storage::disk('minio')->url($this->id . '/video.m3u8');
+        return Storage::disk('minio')->url('videos/' . $this->id . '/video.m3u8');
     }
 
     public function thumbnail(): string
     {
-        return Storage::disk('minio')->url($this->id . '/thumbnail.png');
+        return Storage::disk('minio')->url('videos/' . $this->id . '/thumbnail.png');
     }
-
 }

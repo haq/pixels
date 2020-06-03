@@ -23,11 +23,15 @@ class GenerateVideoThumbnail implements ShouldQueue
 
     public function handle()
     {
-        FFMpeg::fromDisk($this->video->disk)
-            ->open($this->video->path)
-            ->getFrameFromSeconds(10)
+        $media = FFMpeg::fromDisk($this->video->disk)
+            ->open($this->video->path);
+
+        $durationInSeconds = $media->getDurationInSeconds();
+
+        $media->getFrameFromSeconds($durationInSeconds / 2)
             ->export()
-            ->toDisk('streamable_videos')
-            ->save($this->video->id . '/thumbnail.png');
+            ->toDisk('minio')
+            ->withVisibility('public')
+            ->save('videos/' . $this->video->id . '/thumbnail.png');
     }
 }

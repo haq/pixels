@@ -55,13 +55,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'streamable_videos' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/videos'),
-            'url' => env('APP_URL') . '/storage/videos',
-            'visibility' => 'public',
-        ],
-
         'minio' => [
             'driver' => 'minio',
             'key' => env('MINIO_KEY'),
