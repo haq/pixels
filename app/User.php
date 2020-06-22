@@ -27,4 +27,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Video');
     }
 
+    public function image(): string
+    {
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
+    }
+
 }

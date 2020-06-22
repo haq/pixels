@@ -2,13 +2,31 @@
 
 @section('content')
     <div class="container">
-        <h3>{{ $video->title }}</h3>
         @if($video->processed())
             <video controls crossorigin playsinline
                    poster="{{ $video->thumbnail() }}">
             </video>
+            <div class="mt-3">
+                <h3>{{ $video->title }}</h3>
+                <h6 class="text-muted">999 views • {{ $video->created_at->format('F d, Y') }}</h6>
+            </div>
+            <hr>
+            <div class="float-left row mr-0 ml-0">
+                <img src="{{ $video->user->image() }}" class="rounded-circle" width="64" height="64" alt="user image">
+                <div style="position: relative;">
+                    <h3 class="ml-3">{{ $video->user->name }}</h3>
+                    <h5 class="ml-3 text-muted">{{ $video->user->followers()->count() }} followers</h5>
+                </div>
+            </div>
+            <div class="float-right">
+                @if($video->user->id === auth()->id())
+                    <button type="button" class="btn btn-primary">Edit Video</button>
+                @else
+                    <button type="button" class="btn btn-secondary">Follow</button>
+                @endif
+            </div>
         @else
-            <div class="alert alert-info w-100">
+            <div class="alert alert-info">
                 Video is currently being processed and will be available shortly
             </div>
         @endif
