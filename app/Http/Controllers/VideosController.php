@@ -22,7 +22,10 @@ class VideosController extends Controller
 
     public function index()
     {
-        return view('video.index')->with('videos', Video::orderBy('created_at', 'desc')->get());
+        $videos = Video::orderBy('created_at', 'desc')
+            ->where('converted_for_streaming_at', '<>', null)
+            ->get();
+        return view('video.index')->with('videos', $videos);
     }
 
     public function create()

@@ -12,7 +12,7 @@
                         <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ $video->title }}</h5>
-                            <a href="{{ route('videos.show', $video->id) }}" class="btn btn-primary">Watch</a>
+                            <a href="{{ route('videos.show', $video->slug) }}" class="btn btn-primary">Watch</a>
                         </div>
                     </div>
                 </div>
