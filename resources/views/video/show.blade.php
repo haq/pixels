@@ -14,7 +14,11 @@
             <div class="float-left row mr-0 ml-0">
                 <img src="{{ $video->user->image() }}" class="rounded-circle" width="64" height="64" alt="user image">
                 <div style="position: relative;">
-                    <h3 class="ml-3">{{ $video->user->name }}</h3>
+                    <h3 class="ml-3">
+                        <a href="{{ route('user.show', $video->user->name) }}" style="color: #343a40;text-decoration:none;">
+                            {{ $video->user->name }}
+                        </a>
+                    </h3>
                     <h5 class="ml-3 text-muted">{{ $video->user->followers()->count() }} followers</h5>
                 </div>
             </div>
