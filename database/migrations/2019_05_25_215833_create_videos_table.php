@@ -18,7 +18,7 @@ class CreateVideosTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('slug')->unique()->nullable();
             $table->string('title');
-            $table->string('disk')->unique();
+            $table->string('disk');
             $table->string('path')->unique();
             $table->timestamp('converted_for_streaming_at')->nullable();
             $table->timestamps();
