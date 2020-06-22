@@ -2,14 +2,15 @@
 
 namespace App;
 
-use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @property timestamp converted_for_streaming_at
+ * @property string slug
+ * @property string title
  * @property string disk
  * @property string path
+ * @property timestamp converted_for_streaming_at
  */
 class Video extends Model
 {
@@ -27,13 +28,6 @@ class Video extends Model
     public function processed(): bool
     {
         return $this->converted_for_streaming_at != null;
-    }
-
-    public function url(): string
-    {
-        $hashids = new Hashids();
-        $hashcode = $hashids->encode($this->id);
-        return "/videos/$hashcode";
     }
 
     public function video(): string

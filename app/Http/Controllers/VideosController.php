@@ -6,7 +6,6 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
 use App\Video;
-use Exception;
 use Hashids\Hashids;
 
 class VideosController extends Controller
@@ -31,15 +30,10 @@ class VideosController extends Controller
         return view('video.create');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        try {
-            $videoId = $this->hashids->decode($id)[0];
-            $video = Video::findOrFail($videoId);
-            return view('video.show')->with('video', $video);
-        } catch (Exception  $exception) {
-            abort(404);
-        }
+        $video = Video::where('slug', $slug)->firstOrFail();
+        return view('video.show')->with('video', $video);
     }
 
     public function store(StoreVideoRequest $request)
@@ -51,11 +45,13 @@ class VideosController extends Controller
             'path' => $request->video->store('original', 'minio')
         ]);
 
+        $video->slug = $this->hashids->encode($video->id);
+        $video->save();
+
         ConvertVideoForStreaming::withChain([
             new GenerateVideoThumbnail($video),
         ])->dispatch($video);
 
-        $hashcode = $this->hashids->encode($video->id);
-        return redirect("videos/$hashcode")->with('message', 'Your video will be available shortly after it is processed.');
+        return redirect("videos/$video->slug")->with('message', 'Your video will be available shortly after it is processed.');
     }
 }
