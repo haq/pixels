@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string title
  * @property string disk
  * @property string path
+ * @property int duration
  * @property timestamp converted_for_streaming_at
  */
 class Video extends Model

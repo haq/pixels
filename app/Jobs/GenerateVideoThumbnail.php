@@ -29,6 +29,11 @@ class GenerateVideoThumbnail implements ShouldQueue
 
         $durationInSeconds = $media->getDurationInSeconds();
 
+        // updating the duration of the video
+        $vid = Video::find($this->video->id);
+        $vid->duration = $media->getDurationInMiliseconds();
+        $vid->save();
+
         $media->getFrameFromSeconds($durationInSeconds / 2)
             ->export()
             ->toDisk('minio')
