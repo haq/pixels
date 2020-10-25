@@ -31,7 +31,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-default">
+                <input type="submit" class="btn btn-primary">
             </div>
 
             {{ csrf_field() }}

@@ -18,7 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.3/plyr.css"/>
+    @yield('css')
 </head>
 <body>
 <div id="app">
@@ -36,7 +36,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('videos.index') }}">Videos</a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

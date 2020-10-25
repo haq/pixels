@@ -4,13 +4,11 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Overtrue\LaravelFollow\Traits\CanBeSubscribed;
-use Overtrue\LaravelFollow\Traits\CanSubscribe;
-use Overtrue\LaravelFollow\Traits\CanVote;
+use Overtrue\LaravelFollow\Followable;
 
 class User extends Authenticatable
 {
-    use Notifiable, CanSubscribe, CanBeSubscribed, CanVote;
+    use Notifiable, Followable;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -27,6 +25,11 @@ class User extends Authenticatable
     public function videos()
     {
         return $this->hasMany('App\Video');
+    }
+
+    public function image(): string
+    {
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
 
 }

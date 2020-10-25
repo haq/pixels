@@ -55,17 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
-        'videos_disk' => [
-            'driver' => 'local',
-            'root' => storage_path('app/original'),
-            'visibility' => 'private',
-        ],
-
-        'streamable_videos' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/videos'),
-            'url' => env('APP_URL') . '/storage/videos',
-            'visibility' => 'public',
+        'minio' => [
+            'driver' => 'minio',
+            'key' => env('MINIO_KEY'),
+            'secret' => env('MINIO_SECRET'),
+            'region' => 'us-east-1',
+            'bucket' => env('MINIO_BUCKET'),
+            'endpoint' => env('MINIO_ENDPOINT')
         ],
 
         's3' => [

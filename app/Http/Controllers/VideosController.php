@@ -6,7 +6,6 @@ use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
 use App\Video;
-use Exception;
 use Hashids\Hashids;
 
 class VideosController extends Controller
@@ -23,7 +22,10 @@ class VideosController extends Controller
 
     public function index()
     {
-        return view('video.index')->with('videos', Video::all());
+        $videos = Video::orderBy('created_at', 'desc')
+            ->where('converted_for_streaming_at', '<>', null)
+            ->get();
+        return view('video.index')->with('videos', $videos);
     }
 
     public function create()
@@ -31,15 +33,10 @@ class VideosController extends Controller
         return view('video.create');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        try {
-            $videoId = $this->hashids->decode($id)[0];
-            $video = Video::findOrFail($videoId);
-            return view('video.show')->with('video', $video);
-        } catch (Exception  $exception) {
-            abort(404);
-        }
+        $video = Video::where('slug', $slug)->firstOrFail();
+        return view('video.show')->with('video', $video);
     }
 
     public function store(StoreVideoRequest $request)
@@ -47,17 +44,17 @@ class VideosController extends Controller
         $video = Video::create([
             'user_id' => auth()->id(),
             'title' => $request->title,
-            'disk' => 'videos_disk',
-            'path' => $request->video->store(null, 'videos_disk'),
+            'disk' => 'minio',
+            'path' => $request->video->store('original', 'minio')
         ]);
+
+        $video->slug = $this->hashids->encode($video->id);
+        $video->save();
 
         ConvertVideoForStreaming::withChain([
             new GenerateVideoThumbnail($video),
         ])->dispatch($video);
 
-        return redirect('videos/' . $this->hashids->encode($video->id))->with(
-            'message',
-            'Your video will be available shortly after it is processed.'
-        );
+        return redirect("videos/$video->slug")->with('message', 'Your video will be available shortly after it is processed.');
     }
 }
