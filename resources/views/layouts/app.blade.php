@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.3/plyr.css"/>
     @yield('css')
 </head>
 <body>

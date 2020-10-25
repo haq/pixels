@@ -30,7 +30,8 @@
                         </a>
                         <div class="bottom-left">
                             <h3>
-                                <img src="{{ $video->user->image() }}" class="rounded-circle" width="42" height="42" alt="user image">
+                                <img src="{{ $video->user->image() }}" class="rounded-circle" width="42" height="42"
+                                     alt="user image">
                                 <span class="badge badge-pill badge-light">
                                     {{ $video->title  }}
                                 </span>
@@ -45,8 +46,8 @@
                         </div>
                     </div>
                 </div>
+            @endforeach
         </div>
-        @endforeach
     </div>
     </div>
 @endSection

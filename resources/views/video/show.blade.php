@@ -39,7 +39,7 @@
 @endSection
 
 @section('js')
-    <script src="https://cdn.plyr.io/3.5.3/plyr.polyfilled.js"></script>
+    <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -64,4 +64,8 @@
             window.player = player;
         });
     </script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>
 @endsection
