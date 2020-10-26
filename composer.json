@@ -20,6 +20,7 @@
         "pbmedia/laravel-ffmpeg": "^7.4"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
