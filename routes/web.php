@@ -18,5 +18,5 @@ Route::resource('videos', VideosController::class)->except([
 ]);
 
 Route::prefix('videos')->group(function () {
-    Route::get('{video}', ShowVideo::class)->name('videos.show');
+    Route::get('{slug}', ShowVideo::class)->name('videos.show');
 });

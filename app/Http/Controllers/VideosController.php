@@ -33,12 +33,6 @@ class VideosController extends Controller
         return view('video.create');
     }
 
-    public function show($slug)
-    {
-        $video = Video::where('slug', $slug)->firstOrFail();
-        return view('video.show')->with('video', $video);
-    }
-
     public function store(StoreVideoRequest $request)
     {
         $video = Video::create([
