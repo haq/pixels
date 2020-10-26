@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Videos;
 
 use App\Models\Video;
 use Livewire\Component;
@@ -23,7 +23,7 @@ class ShowVideoData extends Component
 
     public function render()
     {
-        return view('livewire.show-video-data');
+        return view('livewire.videos.show-video-data');
     }
 
     public function enableEditMode()

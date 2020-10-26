@@ -3,8 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VideosController;
-use App\Http\Livewire\CreateVideo;
-use App\Http\Livewire\ShowVideo;
+use App\Http\Livewire\Videos\CreateVideo;
+use App\Http\Livewire\Videos\ShowVideo;
 
 Auth::routes();
 

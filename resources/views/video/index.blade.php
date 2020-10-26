@@ -21,12 +21,13 @@
         <h3 class="text-center">
             Videos
         </h3>
+        <hr>
         <div class="row">
             @foreach($videos as $video)
                 <div class="col-sm-6">
                     <div class="card mb-3">
                         <a href="{{ route('videos.show', $video->slug) }}">
-                            <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="video thumbnail">
                         </a>
                         <div class="bottom-left">
                             <h3>

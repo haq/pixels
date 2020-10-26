@@ -35,7 +35,7 @@
                 <button type="button" class="btn btn-outline-secondary" wire:click="$set('editMode', false)">
                     Cancel
                 </button>
-                <button type="button" class="btn btn-primary" wire:click="submit">
+                <button type="button" class="btn btn-success" wire:click="submit">
                     Save
                 </button>
             @else
