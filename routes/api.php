@@ -1,18 +1,15 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::get("streamauth", function (Request $request) {
+    Log::info($request->input('name'));
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    $user = User::where('stream_key', $request->input('name'))
+        ->firstOrFail();
+
+    return response('ok', 202);
+
+    return redirect("rtmp://127.0.0.1/live/$user->id");
 });

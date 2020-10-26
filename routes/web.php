@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UsersController;
+use App\Http\Livewire\ShowUser;
 use App\Http\Livewire\Videos\CreateVideo;
 use App\Http\Livewire\Videos\ShowVideo;
 use App\Models\Video;
@@ -11,7 +11,8 @@ Auth::routes();
 Route::get('/', [ProfileController::class, 'index'])->name('home');
 
 Route::prefix('user')->group(function () {
-    Route::get('{user}', [UsersController::class, 'show'])->name('user.show');
+    Route::get('{name}', ShowUser::class)
+        ->name('users.show');
 });
 
 Route::prefix('videos')->group(function () {

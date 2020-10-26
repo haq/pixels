@@ -21,7 +21,7 @@
         <img src="{{ $video->user->image() }}" class="rounded-circle" width="64" height="64" alt="user image">
         <div style="position: relative;">
             <h3 class="ml-3">
-                <a href="{{ route('user.show', $video->user->name) }}"
+                <a href="{{ route('users.show', $video->user->name) }}"
                    style="color: #343a40;text-decoration:none;">
                     {{ $video->user->name }}
                 </a>

@@ -1,27 +1,21 @@
-<div class="container">
-    @if($video->processed())
-        <video controls
-               crossorigin
-               playsinline
-               poster="{{ $video->thumbnail() }}"
-               id="video">
-        </video>
-        @livewire('videos.show-video-data', ['video' => $video])
-    @else
-        <div class="alert alert-info">
-            Video is currently being processed and will be available shortly
-        </div>
-    @endif
-</div>
+@section('css')
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>
+@endsection
 
-@if($video->processed())
+<div class="container">
+    <video
+           crossorigin
+           playsinline
+           id="video">
+    </video>
+</div>
 
 @section('js')
     <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const source = "{{ $video->video() }}";
+            const source = "http://127.0.0.1:8080/f1858d04946835c342068bbc99973d14da7c790721958eb6b5012f58be75.m3u8";
             const video = document.querySelector('video');
 
             // For more options see: https://github.com/sampotts/plyr/#options
@@ -52,9 +46,3 @@
         });
     </script>
 @endsection
-
-@section('css')
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>
-@endsection
-
-@endif
