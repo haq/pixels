@@ -47,7 +47,6 @@ class CreateVideo extends Component
         ])->dispatch($videoModel);
 
         return redirect()
-            ->to("videos/$videoModel->slug")
-            ->with('message', 'Your video will be available shortly after it is processed.');
+            ->to("videos/$videoModel->slug");
     }
 }

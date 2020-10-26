@@ -30,16 +30,18 @@
                             <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="video thumbnail">
                         </a>
                         <div class="bottom-left">
-                            <h3>
-                                <img src="{{ $video->user->image() }}"
-                                     class="rounded-circle"
-                                     width="42"
-                                     height="42"
-                                     alt="user image">
+                            <h4>
+                                <a href="{{ route('users.show', $video->user->name) }}" style="text-decoration: none;">
+                                    <img src="{{ $video->user->image() }}"
+                                         class="rounded-circle"
+                                         width="42"
+                                         height="42"
+                                         alt="user image">
+                                </a>
                                 <span class="badge badge-pill badge-light">
                                     {{ \Illuminate\Support\Str::limit($video->title, $limit = 25, $end = '...')  }}
                                 </span>
-                            </h3>
+                            </h4>
                         </div>
                         <div class="bottom-right">
                             <h5>
@@ -52,6 +54,5 @@
                 </div>
             @endforeach
         </div>
-    </div>
     </div>
 @endSection

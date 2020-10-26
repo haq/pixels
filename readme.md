@@ -10,3 +10,6 @@
 
 ##### edit video
 ![edit video](https://i.imgur.com/PrPGgo6.jpeg)
+
+##### show channel
+![show channel](https://i.imgur.com/ZmQQ4I7.png)

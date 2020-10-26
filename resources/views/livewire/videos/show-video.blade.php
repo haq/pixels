@@ -6,7 +6,7 @@
                poster="{{ $video->thumbnail() }}"
                id="video">
         </video>
-        @livewire('show-video-data', ['video' => $video])
+        @livewire('videos.show-video-data', ['video' => $video])
     @else
         <div class="alert alert-info">
             Video is currently being processed and will be available shortly
