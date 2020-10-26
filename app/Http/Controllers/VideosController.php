@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreVideoRequest;
-use App\Jobs\ConvertVideoForStreaming;
-use App\Jobs\GenerateVideoThumbnail;
+
 use App\Models\Video;
-use Hashids\Hashids;
 
 class VideosController extends Controller
 {
-    private $hashids;
 
     public function __construct()
     {
-        $this->hashids = new Hashids();
         $this->middleware('auth')->except([
             'index', 'show'
         ]);
@@ -26,29 +21,5 @@ class VideosController extends Controller
             ->where('converted_for_streaming_at', '<>', null)
             ->get();
         return view('video.index')->with('videos', $videos);
-    }
-
-    public function create()
-    {
-        return view('video.create');
-    }
-
-    public function store(StoreVideoRequest $request)
-    {
-        $video = Video::create([
-            'user_id' => auth()->id(),
-            'title' => $request->title,
-            'disk' => 'minio',
-            'path' => $request->video->store('original', 'minio')
-        ]);
-
-        $video->slug = $this->hashids->encode($video->id);
-        $video->save();
-
-        ConvertVideoForStreaming::withChain([
-            new GenerateVideoThumbnail($video),
-        ])->dispatch($video);
-
-        return redirect("videos/$video->slug")->with('message', 'Your video will be available shortly after it is processed.');
     }
 }

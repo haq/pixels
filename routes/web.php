@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VideosController;
+use App\Http\Livewire\CreateVideo;
 use App\Http\Livewire\ShowVideo;
 
 Auth::routes();
@@ -14,9 +15,10 @@ Route::prefix('user')->group(function () {
 });
 
 Route::resource('videos', VideosController::class)->except([
-    'show', 'update', 'destroy', 'edit'
+    'create', 'show', 'update', 'destroy', 'edit', 'store'
 ]);
 
 Route::prefix('videos')->group(function () {
+    Route::get('create', CreateVideo::class)->name('videos.create');
     Route::get('{slug}', ShowVideo::class)->name('videos.show');
 });

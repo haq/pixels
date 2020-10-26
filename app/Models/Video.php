@@ -7,15 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @property string slug
+ * @property int user_id
  * @property string title
  * @property string disk
  * @property string path
+ * @property string slug
  * @property int duration
  * @property Carbon converted_for_streaming_at
  */
 class Video extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'title',
+        'disk',
+        'path',
+        'slug',
+        'duration',
+        'converted_for_streaming_at',
+    ];
+
     protected $dates = [
         'converted_for_streaming_at'
     ];

@@ -30,10 +30,13 @@
                         </a>
                         <div class="bottom-left">
                             <h3>
-                                <img src="{{ $video->user->image() }}" class="rounded-circle" width="42" height="42"
+                                <img src="{{ $video->user->image() }}"
+                                     class="rounded-circle"
+                                     width="42"
+                                     height="42"
                                      alt="user image">
                                 <span class="badge badge-pill badge-light">
-                                    {{ $video->title  }}
+                                    {{ \Illuminate\Support\Str::limit($video->title, $limit = 25, $end = '...')  }}
                                 </span>
                             </h3>
                         </div>
