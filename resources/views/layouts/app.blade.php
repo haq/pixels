@@ -70,9 +70,15 @@
                             </li>
                         @endif
                     @else
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <img src="{{ Auth::user()->image() }}?s=32"
+                                     class="rounded-circle mr-1"
+                                     alt="user image"
+                                     width="32px"
+                                     height="32px">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
