@@ -16,7 +16,8 @@ Route::prefix('user')->group(function () {
 
 Route::prefix('videos')->group(function () {
     Route::get('/', function () {
-        $videos = Video::orderBy('created_at', 'desc')
+        $videos = Video::with('user')
+            ->orderBy('created_at', 'desc')
             ->where('converted_for_streaming_at', '<>', null)
             ->get();
         return view('video.index')->with('videos', $videos);

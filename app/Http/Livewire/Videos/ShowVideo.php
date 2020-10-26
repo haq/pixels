@@ -11,7 +11,9 @@ class ShowVideo extends Component
 
     public function mount($slug)
     {
-        $this->video = Video::where('slug', $slug)->firstOrFail();
+        $this->video = Video::with('user')
+            ->where('slug', $slug)
+            ->firstOrFail();
     }
 
     public function render()
