@@ -2,16 +2,16 @@
 
 @section('css')
     <style>
+        .top-left {
+            position: absolute;
+            top: 8px;
+            left: 12px;
+        }
+
         .bottom-left {
             position: absolute;
             bottom: 8px;
-            left: 16px;
-        }
-
-        .bottom-right {
-            position: absolute;
-            bottom: 8px;
-            right: 16px;
+            left: 12px;
         }
     </style>
 @endsection
@@ -24,12 +24,12 @@
         <hr>
         <div class="row">
             @foreach($videos as $video)
-                <div class="col-sm-6">
+                <div class="col-4">
                     <div class="card mb-3">
                         <a href="{{ route('videos.show', $video->slug) }}">
                             <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="video thumbnail">
                         </a>
-                        <div class="bottom-left">
+                        <div class="top-left">
                             <h4>
                                 <a href="{{ route('users.show', $video->user->name) }}" style="text-decoration: none;">
                                     <img src="{{ $video->user->image() }}"
@@ -43,7 +43,7 @@
                                 </span>
                             </h4>
                         </div>
-                        <div class="bottom-right">
+                        <div class="bottom-left">
                             <h5>
                                <span class="badge badge-pill badge-light">
                                    {{ date("H:i:s", $video->duration / 1000) }}
