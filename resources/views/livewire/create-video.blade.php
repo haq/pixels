@@ -5,9 +5,8 @@
             <label for="title">Title</label>
             <input type="text"
                    class="form-control @error('title') is-invalid @enderror"
-                   name="title"
                    id="title"
-                   wire:model="title"
+                   wire:model.defer="title"
                    placeholder="Enter video title">
 
             @error('title')
@@ -31,7 +30,6 @@
                 <label for="video">Video File</label>
                 <input type="file"
                        class="form-control-file @error('video') is-invalid @enderror"
-                       name="video"
                        wire:model="video">
 
                 @error('video')

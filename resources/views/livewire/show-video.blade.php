@@ -7,7 +7,21 @@
                id="video">
         </video>
         <div class="mt-3">
-            <h3>{{ $video->title }}</h3>
+            @if($editMode)
+                <input type="text"
+                       class="form-control @error('title') is-invalid @enderror"
+                       id="title"
+                       wire:model.defer="title"
+                       value="{{ $video->title }}">
+
+                @error('title')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            @else
+                <h3>{{ $video->title }}</h3>
+            @endif
             <h6 class="text-muted">999 views • {{ $video->created_at->format('F d, Y') }}</h6>
         </div>
         <hr>
@@ -25,7 +39,15 @@
         </div>
         <div class="float-right">
             @if($video->user->id === auth()->id())
-                <button type="button" class="btn btn-primary">Edit Video</button>
+                @if($editMode)
+                    <button type="button" class="btn btn-primary" wire:click="submit">
+                        Save
+                    </button>
+                @else
+                    <button type="button" class="btn btn-primary" wire:click="$set('editMode', true)">
+                        Edit Video
+                    </button>
+                @endif
             @else
                 <button type="button" class="btn btn-secondary">Follow</button>
             @endif
