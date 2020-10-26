@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
-use App\Video;
+use App\Models\Video;
 use Hashids\Hashids;
 
 class VideosController extends Controller
@@ -31,12 +31,6 @@ class VideosController extends Controller
     public function create()
     {
         return view('video.create');
-    }
-
-    public function show($slug)
-    {
-        $video = Video::where('slug', $slug)->firstOrFail();
-        return view('video.show')->with('video', $video);
     }
 
     public function store(StoreVideoRequest $request)

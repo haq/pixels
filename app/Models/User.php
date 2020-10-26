@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,7 +24,7 @@ class User extends Authenticatable
 
     public function videos()
     {
-        return $this->hasMany('App\Video');
+        return $this->hasMany(Video::class);
     }
 
     public function image(): string

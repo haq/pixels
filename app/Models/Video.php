@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string disk
  * @property string path
  * @property int duration
- * @property timestamp converted_for_streaming_at
+ * @property Carbon converted_for_streaming_at
  */
 class Video extends Model
 {
@@ -19,25 +20,23 @@ class Video extends Model
         'converted_for_streaming_at'
     ];
 
-    protected $guarded = [];
-
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function processed(): bool
     {
-        return $this->converted_for_streaming_at != null;
+        return $this->converted_for_streaming_at !== null;
     }
 
     public function video(): string
     {
-        return Storage::disk('minio')->url('videos/' . $this->id . '/video.m3u8');
+        return Storage::cloud()->url("videos/$this->id/video.m3u8");
     }
 
     public function thumbnail(): string
     {
-        return Storage::disk('minio')->url('videos/' . $this->id . '/thumbnail.png');
+        return Storage::cloud()->url("videos/$this->id/thumbnail.png");
     }
 }
