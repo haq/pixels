@@ -11,7 +11,8 @@ class ShowUser extends Component
 
     public function mount($name)
     {
-        $this->user = User::where('name', $name)
+        $this->user = User::with('videos')
+            ->where('name', $name)
             ->firstOrFail();
     }
 
