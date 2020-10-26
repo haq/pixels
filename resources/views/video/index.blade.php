@@ -21,19 +21,23 @@
         <h3 class="text-center">
             Videos
         </h3>
+        <hr>
         <div class="row">
             @foreach($videos as $video)
                 <div class="col-sm-6">
                     <div class="card mb-3">
                         <a href="{{ route('videos.show', $video->slug) }}">
-                            <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="video thumbnail">
                         </a>
                         <div class="bottom-left">
                             <h3>
-                                <img src="{{ $video->user->image() }}" class="rounded-circle" width="42" height="42"
+                                <img src="{{ $video->user->image() }}"
+                                     class="rounded-circle"
+                                     width="42"
+                                     height="42"
                                      alt="user image">
                                 <span class="badge badge-pill badge-light">
-                                    {{ $video->title  }}
+                                    {{ \Illuminate\Support\Str::limit($video->title, $limit = 25, $end = '...')  }}
                                 </span>
                             </h3>
                         </div>

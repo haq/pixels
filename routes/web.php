@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\VideosController;
-use App\Http\Livewire\ShowVideo;
+use App\Http\Livewire\Videos\CreateVideo;
+use App\Http\Livewire\Videos\ShowVideo;
+use App\Models\Video;
 
 Auth::routes();
 
@@ -13,10 +14,19 @@ Route::prefix('user')->group(function () {
     Route::get('{user}', [UsersController::class, 'show'])->name('user.show');
 });
 
-Route::resource('videos', VideosController::class)->except([
-    'show', 'update', 'destroy', 'edit'
-]);
-
 Route::prefix('videos')->group(function () {
-    Route::get('{slug}', ShowVideo::class)->name('videos.show');
+    Route::get('/', function () {
+        $videos = Video::with('user')
+            ->orderBy('created_at', 'desc')
+            ->where('converted_for_streaming_at', '<>', null)
+            ->get();
+        return view('video.index')->with('videos', $videos);
+    })->name('videos.index');
+
+    Route::get('create', CreateVideo::class)
+        ->middleware('auth')
+        ->name('videos.create');
+
+    Route::get('{slug}', ShowVideo::class)
+        ->name('videos.show');
 });

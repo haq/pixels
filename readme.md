@@ -2,5 +2,11 @@
 
 ## screenshots
 
-![list videos](https://i.imgur.com/iAqG0hR.jpg)
-![watch video](https://i.imgur.com/l4wEQpa.jpg)
+##### all videos
+![list videos](https://i.imgur.com/7xNnv5X.jpg)
+
+##### watch video
+![watch video](https://i.imgur.com/jemW8Jh.jpg)
+
+##### edit video
+![edit video](https://i.imgur.com/PrPGgo6.jpeg)

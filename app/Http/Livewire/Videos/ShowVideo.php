@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Videos;
 
 use App\Models\Video;
 use Livewire\Component;
@@ -11,12 +11,15 @@ class ShowVideo extends Component
 
     public function mount($slug)
     {
-        $this->video = Video::where('slug', $slug)->firstOrFail();
+        $this->video = Video::with('user')
+            ->where('slug', $slug)
+            ->firstOrFail();
     }
 
     public function render()
     {
-        return view('livewire.show-video')
+        return view('livewire.videos.show-video')
             ->extends('layouts.app');
     }
+
 }
