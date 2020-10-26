@@ -3,8 +3,11 @@
 @section('content')
     <div class="container">
         @if($video->processed())
-            <video controls crossorigin playsinline
-                   poster="{{ $video->thumbnail() }}">
+            <video controls
+                   crossorigin
+                   playsinline
+                   poster="{{ $video->thumbnail() }}"
+                   id="video">
             </video>
             <div class="mt-3">
                 <h3>{{ $video->title }}</h3>
@@ -38,6 +41,8 @@
     </div>
 @endSection
 
+@if($video->processed())
+
 @section('js')
     <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -48,16 +53,25 @@
 
             // For more options see: https://github.com/sampotts/plyr/#options
             // captions.update is required for captions to work with hls.js
-            const player = new Plyr(video, {captions: {active: true, update: true, language: 'en'}});
+            const player = new Plyr(video, {
+                tooltips: {
+                    controls: true,
+                    seek: true
+                },
+                storage: {
+                    enabled: true,
+                    key: 'plyr'
+                }
+            });
 
-            if (!Hls.isSupported()) {
-                video.src = source;
-            } else {
+            if (Hls.isSupported()) {
                 // For more Hls.js options, see https://github.com/dailymotion/hls.js
                 const hls = new Hls();
                 hls.loadSource(source);
                 hls.attachMedia(video);
                 window.hls = hls;
+            } else {
+                video.src = source;
             }
 
             // Expose player so it can be used from the console
@@ -69,3 +83,6 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>
 @endsection
+
+@endif
+

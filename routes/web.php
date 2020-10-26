@@ -1,16 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+use App\Http\Livewire\ShowVideo;
 
 Auth::routes();
 
@@ -20,9 +10,8 @@ Route::prefix('user')->group(function () {
     Route::get('{user}', 'UsersController@show')->name('user.show');
 });
 
-/*
- * Videos
- */
 Route::resource('videos', 'VideosController')->except([
-    'update', 'destroy', 'edit'
+    'show', 'update', 'destroy', 'edit'
 ]);
+
+/*Route::get('/post', ShowVideo::class);*/
