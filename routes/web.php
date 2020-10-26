@@ -1,17 +1,22 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VideosController;
 use App\Http\Livewire\ShowVideo;
 
 Auth::routes();
 
-Route::get('/', 'ProfileController@index')->name('home');
+Route::get('/', [ProfileController::class, 'index'])->name('home');
 
 Route::prefix('user')->group(function () {
-    Route::get('{user}', 'UsersController@show')->name('user.show');
+    Route::get('{user}', [UsersController::class, 'show'])->name('user.show');
 });
 
-Route::resource('videos', 'VideosController')->except([
+Route::resource('videos', VideosController::class)->except([
     'show', 'update', 'destroy', 'edit'
 ]);
 
-/*Route::get('/post', ShowVideo::class);*/
+Route::prefix('videos')->group(function () {
+    Route::get('{video}', ShowVideo::class)->name('videos.show');
+});

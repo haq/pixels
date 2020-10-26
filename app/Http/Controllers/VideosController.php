@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVideoRequest;
 use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
-use App\Video;
+use App\Models\Video;
 use Hashids\Hashids;
 
 class VideosController extends Controller
