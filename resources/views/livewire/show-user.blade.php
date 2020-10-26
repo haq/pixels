@@ -32,8 +32,13 @@
 
     <hr>
 
-    <div class="row">
-        @foreach($user->videos as $video)
+    <select class="custom-select mr-sm-2" id="sort" wire:model="sortBy">
+        <option value="desc">Sort by new</option>
+        <option value="asc">Sort by old</option>
+    </select>
+
+    <div class="row mt-3">
+        @foreach($videos as $video)
             <div class="col-4">
                 <div class="card mb-3">
                     <a href="{{ route('videos.show', $video->slug) }}">
@@ -48,9 +53,9 @@
                     </div>
                     <div class="top-right">
                         <h5>
-                               <span class="badge badge-pill badge-light">
-                                   {{ date("H:i:s", $video->duration / 1000) }}
-                               </span>
+                            <span class="badge badge-pill badge-light">
+                                {{ date("H:i:s", $video->duration / 1000) }}
+                            </span>
                         </h5>
                     </div>
                 </div>
