@@ -3,13 +3,21 @@
 use App\Models\User;
 use Illuminate\Http\Request;
 
-Route::get("streamauth", function (Request $request) {
-    Log::info($request->input('name'));
+Route::get('publish', function (Request $request) {
+    Log::info('STREAM START');
 
     $user = User::where('stream_key', $request->input('name'))
         ->firstOrFail();
 
-    return response('ok', 202);
+    // TODO: set the user stream to online
 
-    return redirect("rtmp://127.0.0.1/live/$user->id");
+    return response($user->name, 302);
+});
+
+Route::get('publish_done', function (Request $request) {
+    Log::info('STREAM END');
+
+    // TODO: set the user stream to offline
+
+    return response('OK');
 });
