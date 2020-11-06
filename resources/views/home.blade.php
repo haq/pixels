@@ -2,18 +2,21 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
 
-                    <div class="card-body">
-                        <a role="button" href="{{ route('videos.create') }}" class="btn btn-primary">
-                            Upload video
-                        </a>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-auto mr-auto row mr-0 ml-0">
+                <h3>Feed</h3>
+            </div>
+            <div class="col-auto">
+                <a role="button" href="{{ route('videos.create') }}" class="btn btn-primary">
+                    Upload video
+                </a>
             </div>
         </div>
+
+        <hr>
+
+        
+
     </div>
 @endsection
