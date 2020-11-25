@@ -14,9 +14,21 @@
             </div>
         </div>
 
-        <hr>
+        @if(count($today) > 0)
+            <hr>
+            <h5>Today</h5>
+            @foreach($today as $video)
+                {{ $video }}
+            @endforeach
+        @endif
 
-        
+        @if(count($yesterday) > 0)
+            <hr>
+            <h5>Yesterday</h5>
+            @foreach($yesterday as $video)
+                {{ $video }}
+            @endforeach
+        @endif
 
     </div>
 @endsection

@@ -12,7 +12,23 @@ class ProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-        //return  $user->followings()->get();
-        return view('home');
+
+        $today = collect();
+        $yesterday = collect();
+        foreach ($user->followings as $following) {
+            $today->push(
+                $following->videos()->with('user')->whereDate('created_at', today())->get()
+            );
+            $yesterday->push(
+                $following->videos()->with('user')->whereDate('created_at', today()->subDay())->get()
+            );
+        }
+
+        return count($yesterday);
+
+        return view('home', [
+            'today' => $today,
+            'yesterday' => $yesterday
+        ]);
     }
 }
