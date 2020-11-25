@@ -25,9 +25,7 @@
                 <h5 class="ml-3 text-muted">{{ $user->followers()->count() }} followers</h5>
             </div>
         </div>
-        <div class="col-auto">
-            <button type="button" class="btn btn-secondary">Follow</button>
-        </div>
+        @include('includes.follow-button')
     </div>
 
     <hr>

@@ -6,26 +6,13 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except([
-            'show'
-        ]);
+        $this->middleware('auth');
     }
 
     public function index()
     {
+        $user = auth()->user();
+        //return  $user->followings()->get();
         return view('home');
-    }
-
-    public function show(string $user)
-    {
-        /* $user = User::getUserByName($user);
-         if (!$user) {
-             return abort(404);
-         }
-         return view('profile')->with([
-             'user' => $user,
-             'tweets' => $this->getTweets($user, false),
-             'home' => false
-         ]);*/
     }
 }

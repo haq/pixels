@@ -36,7 +36,7 @@
         </div>
 
         <div class="col-auto">
-            @if($video->user->id === auth()->id())
+            @if(auth()->id() === $video->user->id)
                 @if($editMode)
                     <button type="button" class="btn btn-outline-secondary" wire:click="$set('editMode', false)">
                         Cancel
@@ -50,7 +50,7 @@
                     </button>
                 @endif
             @else
-                <button type="button" class="btn btn-secondary">Follow</button>
+                @include('includes.follow-button')
             @endif
         </div>
     </div>
