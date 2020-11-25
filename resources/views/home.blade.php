@@ -27,9 +27,21 @@
         @if(count($yesterday) > 0)
             <hr>
             <h5>Yesterday</h5>
+            <div class="row mt-3">
             @foreach($yesterday as $video)
-                {{ $video }}
+                <x-video-card :video="$video" :show-user-image="true"/>
             @endforeach
+            </div>
+        @endif
+
+        @if(count($week) > 0)
+            <hr>
+            <h5>Week</h5>
+            <div class="row mt-3">
+                @foreach($week as $video)
+                    <x-video-card :video="$video" :show-user-image="true"/>
+                @endforeach
+            </div>
         @endif
 
     </div>

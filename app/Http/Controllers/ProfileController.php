@@ -15,6 +15,7 @@ class ProfileController extends Controller
 
         $today = collect();
         $yesterday = collect();
+        $week = collect();
         foreach ($user->followings as $following) {
             foreach ($following->videos()->with('user')->whereDate('created_at', today())->get() as $video) {
                 $today->push(
@@ -26,11 +27,18 @@ class ProfileController extends Controller
                     $video
                 );
             }
+
+            foreach ($following->videos()->with('user')->whereDate('created_at', '<', today()->subDay())->get() as $video) {
+                $week->push(
+                    $video
+                );
+            }
         }
 
         return view('home', [
             'today' => $today,
-            'yesterday' => $yesterday
+            'yesterday' => $yesterday,
+            'week' => $week
         ]);
     }
 }
