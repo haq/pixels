@@ -6,26 +6,39 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except([
-            'show'
-        ]);
+        $this->middleware('auth');
     }
 
     public function index()
     {
-        return view('home');
-    }
+        $user = auth()->user();
 
-    public function show(string $user)
-    {
-        /* $user = User::getUserByName($user);
-         if (!$user) {
-             return abort(404);
-         }
-         return view('profile')->with([
-             'user' => $user,
-             'tweets' => $this->getTweets($user, false),
-             'home' => false
-         ]);*/
+        $today = collect();
+        $yesterday = collect();
+        $week = collect();
+        foreach ($user->followings as $following) {
+            foreach ($following->videos()->with('user')->whereDate('created_at', today())->get() as $video) {
+                $today->push(
+                    $video
+                );
+            }
+            foreach ($following->videos()->with('user')->whereDate('created_at', today()->subDay())->get() as $video) {
+                $yesterday->push(
+                    $video
+                );
+            }
+
+            foreach ($following->videos()->with('user')->whereDate('created_at', '<', today()->subDay())->get() as $video) {
+                $week->push(
+                    $video
+                );
+            }
+        }
+
+        return view('home', [
+            'today' => $today,
+            'yesterday' => $yesterday,
+            'week' => $week
+        ]);
     }
 }

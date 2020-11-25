@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowUser;
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\ShowUser;
 use App\Http\Livewire\Videos\CreateVideo;
@@ -13,6 +14,9 @@ Route::get('/', [ProfileController::class, 'index'])->name('home');
 Route::prefix('user')->group(function () {
     Route::get('{name}', ShowUser::class)
         ->name('users.show');
+
+    Route::post('/follow/{user}', FollowUser::class)
+        ->name('users.follow');
 });
 
 Route::prefix('videos')->group(function () {
