@@ -16,15 +16,17 @@ class ProfileController extends Controller
         $today = collect();
         $yesterday = collect();
         foreach ($user->followings as $following) {
-            $today->push(
-                $following->videos()->with('user')->whereDate('created_at', today())->get()
-            );
-            $yesterday->push(
-                $following->videos()->with('user')->whereDate('created_at', today()->subDay())->get()
-            );
+            foreach ($following->videos()->with('user')->whereDate('created_at', today())->get() as $video) {
+                $today->push(
+                    $video
+                );
+            }
+            foreach ($following->videos()->with('user')->whereDate('created_at', today()->subDay())->get() as $video) {
+                $yesterday->push(
+                    $video
+                );
+            }
         }
-
-        return count($yesterday);
 
         return view('home', [
             'today' => $today,

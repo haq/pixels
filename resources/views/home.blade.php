@@ -17,9 +17,11 @@
         @if(count($today) > 0)
             <hr>
             <h5>Today</h5>
-            @foreach($today as $video)
-                {{ $video }}
-            @endforeach
+            <div class="row mt-3">
+                @foreach($today as $video)
+                    <x-video-card :video="$video" :show-user-image="true"/>
+                @endforeach
+            </div>
         @endif
 
         @if(count($yesterday) > 0)

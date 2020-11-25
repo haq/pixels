@@ -50,7 +50,7 @@
                     </button>
                 @endif
             @else
-                @include('includes.follow-button')
+                <x-follow-button :user="$video->user"/>
             @endif
         </div>
     </div>
