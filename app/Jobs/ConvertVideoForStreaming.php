@@ -38,10 +38,9 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($midBitrate, function ($media) {
                 $media->scale(1280, 720);
             })
-/*            ->addFormat($highBitrate, function ($media) {
+            ->addFormat($highBitrate, function ($media) {
                 $media->scale(1920, 1080);
-            })*/
-            ->withVisibility('public')
+            })
             ->save('videos/' . $this->video->slug . '/video.m3u8');
 
         $this->video->update([
