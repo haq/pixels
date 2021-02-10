@@ -1,3 +1,5 @@
+@props(['video', 'showUserImage'])
+
 @section('css')
     <style>
         .top-left {
@@ -35,14 +37,14 @@
                              height="42"
                              alt="user image">
                     </a>
-                    <span class="badge badge-pill badge-light">
-                        {{ \Illuminate\Support\Str::limit($video->title, $limit = 25, $end = '...')  }}
+                    <span class="badge rounded-pill bg-light text-dark">
+                        {{ Str::limit($video->title, $limit = 25, $end = '...')  }}
                     </span>
                 </h4>
             </div>
             <div class="bottom-left">
                 <h5>
-                    <span class="badge badge-pill badge-light">{{ date("H:i:s", $video->duration / 1000) }}</span>
+                    <span class="badge rounded-pill bg-light text-dark h5">{{ date("H:i:s", $video->duration / 1000) }}</span>
                 </h5>
             </div>
         </div>
@@ -54,7 +56,7 @@
             <div class="bottom-left">
                 <h4>
                 <span class="badge badge-pill badge-light">
-                    {{ \Illuminate\Support\Str::limit($video->title, $limit = 25, $end = '...')  }}
+                    {{ Str::limit($video->title, $limit = 25, $end = '...')  }}
                 </span>
                 </h4>
             </div>
