@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class ShowUser extends Component
 {
-    public $user;
-    public $sortBy = 'desc';
+    public User $user;
+    public string $sortBy = 'desc';
 
     protected $rules = [
         'sortBy' => 'required|string|in:desc,asc'
@@ -25,7 +25,7 @@ class ShowUser extends Component
 
         $videos = $this->user->videos()
             ->orderBy('created_at', $this->sortBy)
-            ->where('converted_for_streaming_at', '<>', null)
+            ->whereNotNull('converted_for_streaming_at')
             ->get();
 
         return view('livewire.show-user', [

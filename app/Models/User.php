@@ -32,7 +32,7 @@ class User extends Authenticatable
         return $this->hasMany(Video::class);
     }
 
-    public function image(): string
+    public function getImageAttribute()
     {
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }

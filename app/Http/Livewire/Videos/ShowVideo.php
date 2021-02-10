@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Videos;
 use App\Models\Video;
 use Livewire\Component;
 
+// TODO: convert to blade component
 class ShowVideo extends Component
 {
     public $video;

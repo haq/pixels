@@ -31,7 +31,7 @@
             <div class="top-left">
                 <h4>
                     <a href="{{ route('users.show', $video->user->name) }}" style="text-decoration: none;">
-                        <img src="{{ $video->user->image() }}"
+                        <img src="{{ $video->user->image }}"
                              class="rounded-circle"
                              width="42"
                              height="42"
@@ -44,7 +44,7 @@
             </div>
             <div class="bottom-left">
                 <h5>
-                    <span class="badge rounded-pill bg-light text-dark h5">{{ date("H:i:s", $video->duration / 1000) }}</span>
+                    <span class="badge rounded-pill bg-light text-dark">{{ date("H:i:s", $video->duration / 1000) }}</span>
                 </h5>
             </div>
         </div>
@@ -55,14 +55,14 @@
             </a>
             <div class="bottom-left">
                 <h4>
-                <span class="badge badge-pill badge-light">
+                <span class="badge rounded-pill bg-light text-dark">
                     {{ Str::limit($video->title, $limit = 25, $end = '...')  }}
                 </span>
                 </h4>
             </div>
             <div class="top-right">
                 <h5>
-                    <span class="badge badge-pill badge-light">{{ date("H:i:s", $video->duration / 1000) }}</span>
+                    <span class="badge rounded-pill bg-light text-dark">{{ date("H:i:s", $video->duration / 1000) }}</span>
                 </h5>
             </div>
         </div>

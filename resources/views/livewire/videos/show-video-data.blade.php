@@ -22,20 +22,20 @@
 
     <div class="row">
 
-        <div class="col-auto mr-auto row mr-0 ml-0">
-            <img src="{{ $video->user->image() }}" class="rounded-circle" width="64" height="64" alt="user image">
-            <div style="position: relative;">
-                <h4 class="ml-3">
+        <div class="col-auto">
+            <img src="{{ $video->user->image }}" class="rounded-circle" width="64" height="64" alt="user image">
+            <div>
+                <h4 class="ms-3">
                     <a href="{{ route('users.show', $video->user->name) }}"
                        style="color: #343a40;text-decoration:none;">
                         {{ $video->user->name }}
                     </a>
                 </h4>
-                <h6 class="ml-3 text-muted">{{ $video->user->followers()->count() }} followers</h6>
+                <h6 class="ms-3 text-muted">{{ $video->user->followers()->count() }} followers</h6>
             </div>
         </div>
 
-        <div class="col-auto">
+        <div class="col-auto ms-auto">
             @if(auth()->id() === $video->user->id)
                 @if($editMode)
                     <button type="button" class="btn btn-outline-secondary" wire:click="$set('editMode', false)">

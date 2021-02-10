@@ -70,8 +70,8 @@
                                data-bs-toggle="dropdown"
                                aria-haspopup="true"
                                aria-expanded="false">
-                                <img src="{{ Auth::user()->image() }}?s=32"
-                                     class="rounded-circle mr-1"
+                                <img src="{{ Auth::user()->image }}?s=32"
+                                     class="rounded-circle me-1"
                                      alt="user image"
                                      width="32px"
                                      height="32px">
