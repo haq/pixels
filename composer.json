@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "coraxster/flysystem-aws-s3-v3-minio": "^1.0",
+        "league/flysystem-aws-s3-v3": "~1.0",
         "fideloper/proxy": "^4.0",
         "hashids/hashids": "^4.0",
         "laravel/framework": "^8.0",
@@ -17,7 +17,7 @@
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.3",
         "overtrue/laravel-follow": "^2.2",
-        "pbmedia/laravel-ffmpeg": "^7.4"
+        "pbmedia/laravel-ffmpeg": "^7.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
