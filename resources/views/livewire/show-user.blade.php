@@ -1,13 +1,25 @@
 <div class="container">
 
     <div class="row">
+
         <div class="col-auto">
-            <img src="{{ $user->image }}" class="rounded-circle" width="64" height="64" alt="user image">
-            <div style="position: relative;">
-                <h3 class="ml-3">
-                    {{ $user->name }}
-                </h3>
-                <h5 class="ml-3 text-muted">{{ $user->followers()->count() }} followers</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ $user->image }}"
+                         class="rounded-circle"
+                         width="64"
+                         height="64"
+                         alt="user image">
+                </div>
+                <div class="col-md-8">
+                    <h4>
+                        <a href="{{ route('users.show', $user->name) }}"
+                           style="color: #343a40;text-decoration:none;">
+                            {{ $user->name }}
+                        </a>
+                    </h4>
+                    <h6 class="text-muted ms-1">{{ $user->followers()->count() }} followers</h6>
+                </div>
             </div>
         </div>
         <div class="col-auto ms-auto">

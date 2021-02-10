@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
+
 class ProfileController extends Controller
 {
     public function __construct()
@@ -13,27 +16,16 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $today = collect();
-        $yesterday = collect();
-        $week = collect();
-        $past = collect();
+        $today = [];
+        $yesterday = [];
+        $week = [];
+        $past = [];
+        
         foreach ($user->followings as $following) {
-
-            foreach ($following->videos()->with('user')->whereDate('created_at', today())->get() as $video) {
-                $today->push($video);
-            }
-
-            foreach ($following->videos()->with('user')->whereDate('created_at', today()->subDay())->get() as $video) {
-                $yesterday->push($video);
-            }
-
-            foreach ($following->videos()->with('user')->whereBetween('created_at', [today()->subDay()->subWeek(), today()->subDay()])->get() as $video) {
-                $week->push($video);
-            }
-
-            foreach ($following->videos()->with('user')->whereBetween('created_at', [today()->subDecade(), today()->subDay()->subWeek()])->get() as $video) {
-                $past->push($video);
-            }
+            array_push($today, ...self::getVideos($following, today(), today()));
+            array_push($yesterday, ...self::getVideos($following, today()->subDay(), today()->subDay()));
+            array_push($week, ...self::getVideos($following, today()->subDay()->subWeek(), today()->subDay()));
+            array_push($past, ...self::getVideos($following, today()->subDecade(), today()->subDay()->subWeek()));
         }
 
         return view('home', [
@@ -42,5 +34,13 @@ class ProfileController extends Controller
             'week' => $week,
             'past' => $past,
         ]);
+    }
+
+    private static function getVideos($users, Carbon $start, Carbon $end): Collection
+    {
+        return $users->videos()
+            ->with('user')
+            ->whereBetween('created_at', [$start, $end])
+            ->get();
     }
 }

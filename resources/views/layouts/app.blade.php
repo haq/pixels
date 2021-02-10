@@ -44,6 +44,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.show', Auth::user()->name) }}">Your Channel</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('videos.index') }}">Videos</a>
                     </li>
                 </ul>
