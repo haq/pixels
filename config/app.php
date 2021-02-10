@@ -165,8 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...

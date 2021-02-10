@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Video;
-use Carbon\Carbon;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,7 +15,6 @@ class ConvertVideoForStreaming implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 3;
     private Video $video;
 
     public function __construct(Video $video)
@@ -40,9 +38,9 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($midBitrate, function ($media) {
                 $media->scale(1280, 720);
             })
-            ->addFormat($highBitrate, function ($media) {
+/*            ->addFormat($highBitrate, function ($media) {
                 $media->scale(1920, 1080);
-            })
+            })*/
             ->withVisibility('public')
             ->save('videos/' . $this->video->slug . '/video.m3u8');
 

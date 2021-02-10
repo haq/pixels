@@ -1,5 +1,5 @@
 <div class="container">
-    @if($video->processed())
+    @if($video->processed)
         <div wire:ignore>
             <video id="video"
                    poster="{{ $video->thumbnail }}"
