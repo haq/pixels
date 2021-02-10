@@ -55,6 +55,11 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>
+    <style>
+        .plyr {
+            border-radius: 6px;
+        }
+    </style>
 @endsection
 
 @endif
