@@ -3,7 +3,7 @@
         <video controls
                crossorigin
                playsinline
-               poster="{{ $video->thumbnail() }}"
+               poster="{{ $video->thumbnail }}"
                id="video">
         </video>
         @livewire('videos.show-video-data', ['video' => $video])
@@ -17,11 +17,9 @@
 @if($video->processed())
 
 @section('js')
-    <script src="https://cdn.plyr.io/3.6.2/plyr.polyfilled.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const source = "{{ $video->video() }}";
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const source = "{{ $video->video }}";
             const video = document.querySelector('video');
 
             // For more options see: https://github.com/sampotts/plyr/#options
@@ -54,7 +52,6 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css"/>
     <style>
         .plyr {
             border-radius: 6px;

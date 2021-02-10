@@ -14,8 +14,8 @@ class GenerateVideoThumbnail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3;
-    public $video;
+    public int $tries = 3;
+    public Video $video;
 
     public function __construct(Video $video)
     {
@@ -30,14 +30,14 @@ class GenerateVideoThumbnail implements ShouldQueue
         $durationInSeconds = $media->getDurationInSeconds();
 
         // updating the duration of the video
-        $vid = Video::find($this->video->id);
-        $vid->duration = $media->getDurationInMiliseconds();
-        $vid->save();
+        $this->video->update([
+            'duration' => $media->getDurationInMiliseconds(),
+        ]);
 
         $media->getFrameFromSeconds($durationInSeconds / 2)
             ->export()
             ->toDisk('minio')
             ->withVisibility('public')
-            ->save('videos/' . $this->video->id . '/thumbnail.png');
+            ->save('videos/' . $this->video->slug . '/thumbnail.png');
     }
 }

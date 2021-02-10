@@ -16,8 +16,8 @@ class ConvertVideoForStreaming implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3;
-    private $video;
+    public int $tries = 3;
+    private Video $video;
 
     public function __construct(Video $video)
     {
@@ -27,8 +27,8 @@ class ConvertVideoForStreaming implements ShouldQueue
     public function handle()
     {
         $lowBitrate = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(1500);
-        $midBitrate = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(2500);
-        $highBitrate = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(5000);
+        $midBitrate = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(3500);
+        $highBitrate = (new X264($audioCodec = 'libmp3lame'))->setKiloBitrate(7000);
 
         FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path)
@@ -44,10 +44,10 @@ class ConvertVideoForStreaming implements ShouldQueue
                 $media->scale(1920, 1080);
             })
             ->withVisibility('public')
-            ->save('videos/' . $this->video->id . '/video.m3u8');
+            ->save('videos/' . $this->video->slug . '/video.m3u8');
 
         $this->video->update([
-            'converted_for_streaming_at' => Carbon::now(),
+            'converted_for_streaming_at' => now(),
         ]);
     }
 }

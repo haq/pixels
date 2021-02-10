@@ -26,7 +26,7 @@
     @if($showUserImage)
         <div class="card mb-3">
             <a href="{{ route('videos.show', $video->slug) }}">
-                <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="video thumbnail">
+                <img class="card-img-top" src="{{ $video->thumbnail }}" alt="video thumbnail">
             </a>
             <div class="top-left">
                 <h4>
@@ -51,7 +51,7 @@
     @else
         <div class="card mb-3">
             <a href="{{ route('videos.show', $video->slug) }}">
-                <img class="card-img-top" src="{{ $video->thumbnail() }}" alt="video thumbnail">
+                <img class="card-img-top" src="{{ $video->thumbnail }}" alt="video thumbnail">
             </a>
             <div class="bottom-left">
                 <h4>

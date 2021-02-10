@@ -41,12 +41,13 @@ class Video extends Model
         return $this->converted_for_streaming_at !== null;
     }
 
-    public function video(): string
+    // TODO: change to slug
+    public function getVideoAttribute(): string
     {
         return Storage::cloud()->url("videos/$this->id/video.m3u8");
     }
 
-    public function thumbnail(): string
+    public function getThumbnailAttribute(): string
     {
         return Storage::cloud()->url("videos/$this->id/thumbnail.png");
     }

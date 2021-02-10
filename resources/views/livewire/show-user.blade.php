@@ -22,7 +22,17 @@
         <option value="asc">Sort by old</option>
     </select>
 
-    <div class="row mt-3">
+    <div class="justify-content-center mt-3" wire:loading.flex>
+        <div class="la-line-scale la-dark la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="row mt-3" wire:loading.remove>
         @foreach($videos as $video)
             <x-video-card :video="$video" :show-user-image="false"/>
         @endforeach
