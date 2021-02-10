@@ -4,10 +4,10 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-auto mr-auto row mr-0 ml-0">
+            <div class="col-auto">
                 <h3>Feed</h3>
             </div>
-            <div class="col-auto">
+            <div class="col-auto ms-auto">
                 <a role="button" href="{{ route('videos.create') }}" class="btn btn-primary">
                     Upload video
                 </a>
@@ -39,6 +39,16 @@
             <h5>Week</h5>
             <div class="row mt-3">
                 @foreach($week as $video)
+                    <x-video-card :video="$video" :show-user-image="true"/>
+                @endforeach
+            </div>
+        @endif
+
+        @if(count($past) > 0)
+            <hr>
+            <h5>Past</h5>
+            <div class="row mt-3">
+                @foreach($past as $video)
                     <x-video-card :video="$video" :show-user-image="true"/>
                 @endforeach
             </div>

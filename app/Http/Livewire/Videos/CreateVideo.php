@@ -6,6 +6,7 @@ use App\Jobs\ConvertVideoForStreaming;
 use App\Jobs\GenerateVideoThumbnail;
 use App\Models\Video;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\Bus;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -13,7 +14,7 @@ class CreateVideo extends Component
 {
     use WithFileUploads;
 
-    public $title;
+    public string $title = '';
     public $video;
 
     protected $rules = [
@@ -23,7 +24,7 @@ class CreateVideo extends Component
 
     public function render()
     {
-        return view('livewire.create-video')
+        return view('livewire.videos.create-video')
             ->extends('layouts.app');
     }
 
@@ -42,9 +43,10 @@ class CreateVideo extends Component
         $videoModel->slug = (new Hashids())->encode($videoModel->id);
         $videoModel->save();
 
-        ConvertVideoForStreaming::withChain([
+        Bus::chain([
             new GenerateVideoThumbnail($videoModel),
-        ])->dispatch($videoModel);
+            new ConvertVideoForStreaming($videoModel),
+        ])->dispatch();
 
         return redirect()
             ->to("videos/$videoModel->slug");

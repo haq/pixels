@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Storage;
  * @property string slug
  * @property int duration
  * @property Carbon converted_for_streaming_at
+ *
+ * @property bool processed
+ * @property string video
+ * @property string thumbnail
  */
 class Video extends Model
 {
@@ -36,18 +40,18 @@ class Video extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function processed(): bool
+    public function getProcessedAttribute(): bool
     {
         return $this->converted_for_streaming_at !== null;
     }
 
-    public function video(): string
+    public function getVideoAttribute(): string
     {
-        return Storage::cloud()->url("videos/$this->id/video.m3u8");
+        return Storage::cloud()->url("videos/$this->slug/video.m3u8");
     }
 
-    public function thumbnail(): string
+    public function getThumbnailAttribute(): string
     {
-        return Storage::cloud()->url("videos/$this->id/thumbnail.png");
+        return Storage::cloud()->url("videos/$this->slug/thumbnail.png");
     }
 }

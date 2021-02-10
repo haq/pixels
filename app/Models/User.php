@@ -6,6 +6,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Overtrue\LaravelFollow\Followable;
 
+/**
+ * @property string name
+ * @property string email
+ * @property string stream_key
+ *
+ * @property string image
+ */
 class User extends Authenticatable
 {
     use Notifiable, Followable;
@@ -14,13 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'stream_key'
+        'stream_key',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
-        'stream_key'
+        'stream_key',
     ];
 
     protected $casts = [
@@ -32,7 +39,7 @@ class User extends Authenticatable
         return $this->hasMany(Video::class);
     }
 
-    public function image(): string
+    public function getImageAttribute()
     {
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
