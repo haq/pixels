@@ -13,14 +13,14 @@ class ShowVideo extends Component
     public string $title = '';
     public bool $editMode = false;
 
-    protected $rules = [
+    protected array $rules = [
         'title' => 'required|string|max:191',
     ];
 
-    public function mount(string $slug)
+    public function mount($uuid)
     {
         $this->video = Video::with('user')
-            ->where('slug', $slug)
+            ->where('uuid', $uuid)
             ->firstOrFail();
     }
 

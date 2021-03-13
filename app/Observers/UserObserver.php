@@ -10,5 +10,4 @@ class UserObserver
     {
         $user->stream_key = bin2hex(openssl_random_pseudo_bytes(30));
     }
-
 }

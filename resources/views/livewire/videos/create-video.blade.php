@@ -47,6 +47,7 @@
             </div>
         </div>
 
+        {{--TODO: add loading icon--}}
         <button type="submit" class="btn btn-primary">Create Video</button>
     </form>
 </div>

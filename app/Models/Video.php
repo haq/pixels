@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 /**
+ * @property string uuid
  * @property int user_id
  * @property string title
  * @property string disk
  * @property string path
- * @property string slug
  * @property int duration
  * @property Carbon converted_for_streaming_at
  *
@@ -26,7 +26,7 @@ class Video extends Model
         'title',
         'disk',
         'path',
-        'slug',
+        'uuid',
         'duration',
         'converted_for_streaming_at',
     ];
@@ -34,6 +34,11 @@ class Video extends Model
     protected $dates = [
         'converted_for_streaming_at'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
     public function user()
     {
@@ -47,11 +52,11 @@ class Video extends Model
 
     public function getVideoAttribute(): string
     {
-        return Storage::cloud()->url("videos/$this->slug/video.m3u8");
+        return Storage::cloud()->url("videos/$this->uuid/video.m3u8");
     }
 
     public function getThumbnailAttribute(): string
     {
-        return Storage::cloud()->url("videos/$this->slug/thumbnail.png");
+        return Storage::cloud()->url("videos/$this->uuid/thumbnail.png");
     }
 }
