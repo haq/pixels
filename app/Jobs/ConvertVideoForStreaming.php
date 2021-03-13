@@ -15,11 +15,8 @@ class ConvertVideoForStreaming implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private Video $video;
-
-    public function __construct(Video $video)
+    public function __construct(private Video $video)
     {
-        $this->video = $video;
     }
 
     public function handle()
@@ -41,7 +38,7 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($highBitrate, function ($media) {
                 $media->scale(1920, 1080);
             })
-            ->save('videos/' . $this->video->slug . '/video.m3u8');
+            ->save('videos/' . $this->video->uuid . '/video.m3u8');
 
         $this->video->update([
             'converted_for_streaming_at' => now(),

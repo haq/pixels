@@ -28,6 +28,6 @@ Route::prefix('videos')->group(function () {
         ->middleware('auth')
         ->name('videos.create');
 
-    Route::get('{slug}', ShowVideo::class)
+    Route::get('{uuid}', ShowVideo::class)
         ->name('videos.show');
 });

@@ -15,11 +15,9 @@ class GenerateVideoThumbnail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
-    public Video $video;
 
-    public function __construct(Video $video)
+    public function __construct(public Video $video)
     {
-        $this->video = $video;
     }
 
     public function handle()
@@ -38,6 +36,6 @@ class GenerateVideoThumbnail implements ShouldQueue
             ->export()
             ->toDisk('minio')
             ->withVisibility('public')
-            ->save('videos/' . $this->video->slug . '/thumbnail.png');
+            ->save('videos/' . $this->video->uuid . '/thumbnail.png');
     }
 }
