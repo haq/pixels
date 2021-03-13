@@ -17,7 +17,7 @@ class CreateVideo extends Component
     public string $title = '';
     public $video;
 
-    protected $rules = [
+    protected array $rules = [
         'title' => 'required|string|max:191',
         'video' => 'required|file|mimetypes:video/mp4',
     ];
