@@ -19,13 +19,4 @@ class VideosController extends Controller
 
         return view('video.index')->with('months', $months);
     }
-
-    public function show(string $slug)
-    {
-        $video = Video::with('user')
-            ->where('slug', $slug)
-            ->firstOrFail();
-
-        return view('video.show')->with('video', $video);
-    }
 }
