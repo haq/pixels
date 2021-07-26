@@ -46,6 +46,8 @@ class CreateVideo extends Component
             new ConvertVideoForStreaming($video),
         ])->dispatch();
 
+        // TODO: redirect to user videos
+
         return redirect("videos/$video->uuid");
     }
 }

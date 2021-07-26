@@ -79,9 +79,7 @@
 
 
 @section('js')
-    <script src="https://cdn.plyr.io/3.6.4/plyr.polyfilled.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script type="application/javascript">
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const source = "{{ $video->video }}";
             const video = document.querySelector('video');
@@ -113,12 +111,4 @@
             window.player = player;
         });
     </script>
-@endsection
-
-@section('css')
-    <style>
-        .plyr {
-            border-radius: 6px;
-        }
-    </style>
 @endsection

@@ -25,14 +25,12 @@ class GenerateVideoThumbnail implements ShouldQueue
         $media = FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path);
 
-        $durationInSeconds = $media->getDurationInSeconds();
-
         // updating the duration of the video
         $this->video->update([
             'duration' => $media->getDurationInMiliseconds(),
         ]);
 
-        $media->getFrameFromSeconds($durationInSeconds / 2)
+        $media->getFrameFromSeconds($media->getDurationInSeconds() / 2)
             ->export()
             ->toDisk('minio')
             ->withVisibility('public')
