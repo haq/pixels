@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\VideoStatusUpdate;
 use App\Http\Controllers\Actions\FollowUser;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VideosController;
@@ -30,4 +31,8 @@ Route::prefix('videos')->group(function () {
 
     Route::get('{uuid}', ShowVideo::class)
         ->name('videos.show');
+});
+
+Route::get('test', function (){
+    VideoStatusUpdate::dispatch("794cab27-3d5b-4a4e-83b7-95f254cb60f6", 10);
 });

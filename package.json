@@ -13,9 +13,11 @@
         "@popperjs/core": "^2.9.2",
         "bootstrap": "^5.0.2",
         "hls.js": "^1.0.7",
+        "laravel-echo": "^1.11.0",
         "laravel-mix": "^6.0.25",
         "plyr": "^3.6.8",
         "postcss": "^8.3.6",
+        "pusher-js": "^7.0.3",
         "resolve-url-loader": "^4.0.0"
     }
 }

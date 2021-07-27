@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\VideoStatusUpdate;
 use App\Models\Video;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Bus\Queueable;
@@ -37,6 +38,9 @@ class ConvertVideoForStreaming implements ShouldQueue
             })
             ->addFormat($highBitrate, function ($media) {
                 //$media->scale(1920, 1080);
+            })
+            ->onProgress(function ($percentage) {
+                VideoStatusUpdate::dispatch($this->video->uuid, $percentage);
             })
             ->save('videos/' . $this->video->uuid . '/video.m3u8');
 

@@ -81,6 +81,15 @@
 @section('js')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            Echo.private(`Video.{{ $video->uuid }}`)
+                .listen('VideoStatusUpdate', (e) => {
+                    console.log(e);
+                });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             const source = "{{ $video->video }}";
             const video = document.querySelector('video');
 
