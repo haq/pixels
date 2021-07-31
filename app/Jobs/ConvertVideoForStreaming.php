@@ -40,11 +40,11 @@ class ConvertVideoForStreaming implements ShouldQueue
                 $filters->resize(1280, 720);
             })*/
             ->addFormat($highFormat, function (HLSVideoFilters $filters) {
-                $filters->resize(1920, 1080);
+                //$filters->resize(1920, 1080);
             })
             ->onProgress(function ($percentage) {
                 //VideoStatusUpdate::dispatch($this->video->uuid, $percentage);
-                echo "{$percentage}% transcoded\ns";
+                echo "{$percentage}% transcoded\n";
             })
             ->save('videos/' . $this->video->uuid . '/video.m3u8');
 

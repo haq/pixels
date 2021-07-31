@@ -1,5 +1,16 @@
+/**
+ * Alpine.js
+ */
+require('alpinejs');
+
+/**
+ * Bootstrap 5
+ */
 require('bootstrap');
 
+/**
+ * Video Player
+ */
 window.Hls = require('hls.js');
 window.Plyr = require('plyr');
 
@@ -17,3 +28,12 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: true
 });
+
+
+/**
+ * FilePond
+ */
+window.FilePond = require('filepond');
+window.FilePondPluginFileValidateSize = require('filepond-plugin-file-validate-size');
+window.FilePondPluginFileValidateType = require('filepond-plugin-file-validate-type');
+window.FilePondPluginImageValidateSize = require('filepond-plugin-image-validate-size');

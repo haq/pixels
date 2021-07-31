@@ -1,5 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~plyr/dist/plyr.css";
+@import "~filepond/dist/filepond.min.css";
 
 .plyr {
     border-radius: 6px;
