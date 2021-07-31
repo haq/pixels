@@ -1,5 +1,10 @@
 # pixels
 
+## todo
+- streaming
+- subtitles
+- view count
+
 ## screenshots
 
 ##### all videos
