@@ -29,7 +29,7 @@
                        type="file"
                        id="video"
                        wire:model="video"
-                       accept=".mp4"
+                       accept=".mp4,.mkv"
                        required>
 
                 <div>
