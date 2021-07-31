@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Videos;
 
 use App\Jobs\ConvertVideoForStreaming;
+use App\Jobs\ExtractSubtitle;
 use App\Jobs\GenerateVideoThumbnail;
 use App\Models\Video;
 use Illuminate\Support\Facades\Bus;
@@ -19,7 +20,7 @@ class CreateVideo extends Component
 
     protected array $rules = [
         'title' => 'required|string|max:191',
-        'video' => 'required|file|mimetypes:video/mp4',
+        'video' => 'required|file|mimetypes:video/mp4,video/x-matroska',
     ];
 
     public function render()
@@ -32,10 +33,12 @@ class CreateVideo extends Component
     {
         $this->validate();
 
+        $user = auth()->user();
+
         /** @var Video $video */
         $video = Video::create([
             'uuid' => Str::uuid(),
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'title' => $this->title,
             'disk' => 'minio',
             'path' => $this->video->store('original', 'minio'),
@@ -43,11 +46,10 @@ class CreateVideo extends Component
 
         Bus::chain([
             new GenerateVideoThumbnail($video),
+            new ExtractSubtitle($video),
             new ConvertVideoForStreaming($video),
         ])->dispatch();
 
-        // TODO: redirect to user videos
-
-        return redirect("videos/$video->uuid");
+        return redirect("user/$user->name");
     }
 }

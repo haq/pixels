@@ -5,7 +5,16 @@
                    poster="{{ $video->thumbnail }}"
                    controls
                    crossorigin
-                   playsinline>
+                   playsinline
+                   style="
+                        --plyr-captions-background: rgba(0, 0, 0, 0);
+                        --plyr-font-size-base: 21px;
+                    ">
+                <track kind="captions"
+                       label="English"
+                       src="{{ str_replace('thumbnail.png', 'subtitle.vtt', $video->thumbnail) }}"
+                       srclang="en"
+                       default/>
             </video>
         </div>
 
@@ -81,34 +90,46 @@
 @section('js')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const source = "{{ $video->video }}";
-            const video = document.querySelector('video');
-
-            // For more options see: https://github.com/sampotts/plyr/#options
-            // captions.update is required for captions to work with hls.js
-            const player = new Plyr(video, {
-                tooltips: {
-                    controls: true,
-                    seek: true
-                },
-                storage: {
-                    enabled: true,
-                    key: 'plyr'
-                }
-            });
-
-            if (Hls.isSupported()) {
-                // For more Hls.js options, see https://github.com/dailymotion/hls.js
-                const hls = new Hls();
-                hls.loadSource(source);
-                hls.attachMedia(video);
-                window.hls = hls;
-            } else {
-                video.src = source;
-            }
-
-            // Expose player so it can be used from the console
-            window.player = player;
+            Echo.private(`Video.{{ $video->uuid }}`)
+                .listen('VideoStatusUpdate', (e) => {
+                    console.log(e);
+                });
         });
     </script>
+
+    @if($video->processed)
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const source = "{{ $video->video }}";
+                const video = document.querySelector('video');
+
+                // For more options see: https://github.com/sampotts/plyr/#options
+                // captions.update is required for captions to work with hls.js
+                const player = new Plyr(video, {
+                    tooltips: {
+                        controls: true,
+                        seek: true
+                    },
+                    storage: {
+                        enabled: true,
+                        key: 'plyr'
+                    }
+                });
+
+                if (Hls.isSupported()) {
+                    // For more Hls.js options, see https://github.com/dailymotion/hls.js
+                    const hls = new Hls();
+                    hls.loadSource(source);
+                    hls.attachMedia(video);
+                    window.hls = hls;
+                } else {
+                    video.src = source;
+                }
+
+                // Expose player so it can be used from the console
+                window.player = player;
+            });
+        </script>
+    @endif
+
 @endsection

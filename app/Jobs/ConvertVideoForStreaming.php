@@ -9,11 +9,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use ProtoneMedia\LaravelFFMpeg\Exporters\HLSVideoFilters;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class ConvertVideoForStreaming implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public $timeout = 600;
+    public $failOnTimeout = true;
 
     public function __construct(private Video $video)
     {
@@ -21,22 +25,26 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     public function handle()
     {
-        $lowBitrate = (new X264)->setKiloBitrate(1500);
-        $midBitrate = (new X264)->setKiloBitrate(3500);
-        $highBitrate = (new X264)->setKiloBitrate(7000);
+        $lowFormat = (new X264)->setKiloBitrate(2500);
+        $midFormat = (new X264)->setKiloBitrate(5000);
+        $highFormat = (new X264)->setKiloBitrate(8000);
 
         FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path)
             ->exportForHLS()
             ->toDisk('minio')
-            ->addFormat($lowBitrate, function ($media) {
-                //$media->scale(960, 720);
+          /*  ->addFormat($lowFormat, function (HLSVideoFilters $filters) {
+                $filters->resize(640, 480);
             })
-            ->addFormat($midBitrate, function ($media) {
-                //$media->scale(1280, 720);
+            ->addFormat($midFormat, function (HLSVideoFilters $filters) {
+                $filters->resize(1280, 720);
+            })*/
+            ->addFormat($highFormat, function (HLSVideoFilters $filters) {
+                //$filters->resize(1920, 1080);
             })
-            ->addFormat($highBitrate, function ($media) {
-                //$media->scale(1920, 1080);
+            ->onProgress(function ($percentage) {
+                //VideoStatusUpdate::dispatch($this->video->uuid, $percentage);
+                echo "{$percentage}% transcoded\n";
             })
             ->save('videos/' . $this->video->uuid . '/video.m3u8');
 
@@ -44,4 +52,5 @@ class ConvertVideoForStreaming implements ShouldQueue
             'converted_for_streaming_at' => now(),
         ]);
     }
+
 }

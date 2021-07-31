@@ -3,16 +3,7 @@
 @section('content')
     <div class="container">
 
-        <div class="row">
-            <div class="col-auto">
-                <h3>Feed</h3>
-            </div>
-            <div class="col-auto ms-auto">
-                <a role="button" href="{{ route('videos.create') }}" class="btn btn-primary">
-                    Upload video
-                </a>
-            </div>
-        </div>
+        <h3>Feed</h3>
 
         @if(count($today) > 0)
             <hr>
@@ -28,9 +19,9 @@
             <hr>
             <h5>Yesterday</h5>
             <div class="row mt-3">
-            @foreach($yesterday as $video)
-                <x-video-card :video="$video" :show-user-image="true"/>
-            @endforeach
+                @foreach($yesterday as $video)
+                    <x-video-card :video="$video" :show-user-image="true"/>
+                @endforeach
             </div>
         @endif
 
