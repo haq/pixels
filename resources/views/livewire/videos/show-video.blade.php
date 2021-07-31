@@ -5,7 +5,17 @@
                    poster="{{ $video->thumbnail }}"
                    controls
                    crossorigin
-                   playsinline>
+                   playsinline
+                   style="
+                        --plyr-captions-background: rgba(0, 0, 0, 0);
+                        --plyr-font-size-base: 21px;
+                    ">
+
+                <track kind="captions"
+                       label="English"
+                       src="{{ str_replace('thumbnail.png', 'subtitle.vtt', $video->thumbnail) }}"
+                       srclang="en"
+                       default/>
             </video>
         </div>
 
