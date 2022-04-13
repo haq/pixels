@@ -1,17 +1,17 @@
 /*!
-  * Bootstrap v5.0.2 (https://getbootstrap.com/)
+  * Bootstrap v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 
 /*!
- * FilePond 4.28.2
+ * FilePond 4.30.3
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
 
 /*!
- * FilePondPluginFileValidateSize 2.2.4
+ * FilePondPluginFileValidateSize 2.2.5
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
@@ -23,13 +23,13 @@
  */
 
 /*!
- * FilePondPluginImageValidateSize 1.2.6
+ * FilePondPluginImageValidateSize 1.2.7
  * Licensed under MIT, https://opensource.org/licenses/MIT/
  * Please visit https://pqina.nl/filepond/ for details.
  */
 
 /*!
- * Pusher JavaScript Library v7.0.3
+ * Pusher JavaScript Library v7.0.6
  * https://pusher.com/
  *
  * Copyright 2020, Pusher
@@ -75,6 +75,8 @@
 /*! ../remux/passthrough-remuxer */
 
 /*! ../task-loop */
+
+/*! ../types/cmcd */
 
 /*! ../types/level */
 
@@ -149,6 +151,8 @@
 /*! ./controller/buffer-controller */
 
 /*! ./controller/cap-level-controller */
+
+/*! ./controller/cmcd-controller */
 
 /*! ./controller/eme-controller */
 
@@ -250,6 +254,8 @@
 
 /*! exports provided: BufferHelper */
 
+/*! exports provided: CMCDVersion, CMCDObjectType, CMCDStreamingFormat, CMCDStreamType */
+
 /*! exports provided: ChunkMetadata */
 
 /*! exports provided: ElementaryStreamTypes, BaseSegment, Fragment, Part */
@@ -306,7 +312,7 @@
 
 /*! exports provided: fetchSupported, default */
 
-/*! exports provided: findFirstFragWithCC, shouldAlignOnDiscontinuities, findDiscontinuousReferenceFrag, adjustSlidingStart, alignStream, alignPDT */
+/*! exports provided: findFirstFragWithCC, shouldAlignOnDiscontinuities, findDiscontinuousReferenceFrag, adjustSlidingStart, alignStream, alignPDT, alignFragmentByPDTDelta, alignMediaPlaylistByPDT */
 
 /*! exports provided: findFragmentByPDT, findFragmentByPTS, fragmentWithinToleranceTest, pdtWithinToleranceTest, findFragWithCC */
 
@@ -370,6 +376,10 @@
 
 /*!***************************!*\
   !*** ./src/demux/adts.ts ***!
+  \***************************/
+
+/*!***************************!*\
+  !*** ./src/types/cmcd.ts ***!
   \***************************/
 
 /*!***************************!*\
@@ -611,6 +621,10 @@
 /*!******************************************!*\
   !*** ./src/remux/passthrough-remuxer.ts ***!
   \******************************************/
+
+/*!*******************************************!*\
+  !*** ./src/controller/cmcd-controller.ts ***!
+  \*******************************************/
 
 /*!*******************************************!*\
   !*** ./src/demux/transmuxer-interface.ts ***!
