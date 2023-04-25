@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Overtrue\LaravelFollow\Followable;
+use Overtrue\LaravelFollow\Traits\Follower;
+use Overtrue\LaravelFollow\Traits\Followable;
 
 /**
  * @property string name
@@ -15,7 +18,9 @@ use Overtrue\LaravelFollow\Followable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, Followable;
+    use Notifiable;
+    use Follower;
+    use Followable;
 
     protected $fillable = [
         'name',
@@ -34,14 +39,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function videos()
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::creating(function (User $user) {
+            $user->stream_key = bin2hex(openssl_random_pseudo_bytes(30));
+        });
+    }
+
+    protected function hash(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => md5($attributes['created_at']),
+        );
+    }
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => 'https://avatar.vercel.sh/' . $this->hash . '.svg?text=' . strtoupper(substr($attributes['name'], 0, 2)),
+        );
+    }
+
+    public function videos(): HasMany
     {
         return $this->hasMany(Video::class);
     }
-
-    public function getImageAttribute()
-    {
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
-    }
-
 }

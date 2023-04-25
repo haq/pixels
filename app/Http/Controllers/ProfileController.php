@@ -7,11 +7,6 @@ use Illuminate\Support\Collection;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $user = auth()->user();
@@ -20,9 +15,9 @@ class ProfileController extends Controller
         $yesterday = [];
         $week = [];
         $past = [];
-        
+
         foreach ($user->followings as $following) {
-            array_push($today, ...self::getVideos($following, today(), today()));
+            $today[] = self::getVideos($following, today(), today());
             array_push($yesterday, ...self::getVideos($following, today()->subDay(), today()->subDay()));
             array_push($week, ...self::getVideos($following, today()->subDay()->subWeek(), today()->subDay()));
             array_push($past, ...self::getVideos($following, today()->subDecade(), today()->subDay()->subWeek()));

@@ -11,6 +11,7 @@ use App\Http\Livewire\Videos\ShowVideo;
 Auth::routes();
 
 Route::get('/', [ProfileController::class, 'index'])
+    ->middleware('auth')
     ->name('home');
 
 Route::prefix('user')->group(function () {

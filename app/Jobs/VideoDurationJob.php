@@ -10,30 +10,21 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
-class GenerateVideoThumbnail implements ShouldQueue
+class VideoDurationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 3;
-
-    public function __construct(public Video $video)
+    public function __construct(private readonly Video $video)
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $media = FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path);
 
-        // updating the duration of the video
         $this->video->update([
             'duration' => $media->getDurationInMiliseconds(),
         ]);
-
-        $media->getFrameFromSeconds($media->getDurationInSeconds() / 2)
-            ->export()
-            ->toDisk('minio')
-            ->withVisibility('public')
-            ->save('videos/' . $this->video->uuid . '/thumbnail.png');
     }
 }

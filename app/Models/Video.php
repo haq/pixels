@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -31,32 +33,38 @@ class Video extends Model
         'converted_for_streaming_at',
     ];
 
-    protected $dates = [
-        'converted_for_streaming_at'
+    protected $casts = [
+        'converted_for_streaming_at' => 'datetime',
     ];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'uuid';
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function getProcessedAttribute(): bool
+    protected function processed(): Attribute
     {
-        return $this->converted_for_streaming_at !== null;
+        return Attribute::make(
+            get: fn($value, $attributes) => $attributes['converted_for_streaming_at'] !== null,
+        );
     }
 
-    public function getVideoAttribute(): string
+    protected function video(): Attribute
     {
-        return Storage::cloud()->url("videos/$this->uuid/video.m3u8");
+        return Attribute::make(
+            get: fn($value, $attributes) => Storage::url('videos/' . $attributes['$this->uuid'] . '/video.m3u8'),
+        );
     }
 
-    public function getThumbnailAttribute(): string
+    protected function thumbnail(): Attribute
     {
-        return Storage::cloud()->url("videos/$this->uuid/thumbnail.png");
+        return Attribute::make(
+            get: fn($value, $attributes) => Storage::url('videos/' . $attributes['$this->uuid'] . '/thumbnail.png'),
+        );
     }
 }

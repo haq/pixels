@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Videos;
 
-use App\Jobs\ConvertVideoForStreaming;
-use App\Jobs\ExtractSubtitle;
-use App\Jobs\GenerateVideoThumbnail;
+use App\Jobs\ConvertVideoJob;
+use App\Jobs\ExtractSubtitleJob;
+use App\Jobs\ThumbnailJob;
+use App\Jobs\VideoDurationJob;
 use App\Models\Video;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Str;
@@ -45,9 +46,10 @@ class CreateVideo extends Component
         ]);
 
         Bus::chain([
-            new GenerateVideoThumbnail($video),
-            new ExtractSubtitle($video),
-            new ConvertVideoForStreaming($video),
+            new VideoDurationJob($video),
+            new ThumbnailJob($video),
+            new ExtractSubtitleJob($video),
+            new ConvertVideoJob($video),
         ])->dispatch();
 
         return redirect("user/$user->name");

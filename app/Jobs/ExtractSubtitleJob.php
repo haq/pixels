@@ -9,20 +9,20 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ExtractSubtitle implements ShouldQueue
+class ExtractSubtitleJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private Video $video)
+    public function __construct(private readonly Video $video)
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         // TODO: copy video to tmp location
 
         // TODO: extract subtitle if exists
-        exec('ffmpeg -hide_banner -i rick.and.morty.s05e05.1080p.webrip.x264-cakes.mkv -map 0:s:1 subtitle.srt');
+        //exec('ffmpeg -hide_banner -i rick.and.morty.s05e05.1080p.webrip.x264-cakes.mkv -map 0:s:1 subtitle.srt');
 
         // TODO: convert srt to vtt
 

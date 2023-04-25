@@ -12,18 +12,18 @@ use Illuminate\Queue\SerializesModels;
 use ProtoneMedia\LaravelFFMpeg\Exporters\HLSVideoFilters;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
-class ConvertVideoForStreaming implements ShouldQueue
+class ConvertVideoJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $timeout = 600;
-    public $failOnTimeout = true;
+    public int $timeout = 600;
+    public bool $failOnTimeout = true;
 
-    public function __construct(private Video $video)
+    public function __construct(private readonly Video $video)
     {
     }
 
-    public function handle()
+    public function handle(): void
     {
         $lowFormat = (new X264)->setKiloBitrate(2500);
         $midFormat = (new X264)->setKiloBitrate(5000);
@@ -32,13 +32,13 @@ class ConvertVideoForStreaming implements ShouldQueue
         FFMpeg::fromDisk($this->video->disk)
             ->open($this->video->path)
             ->exportForHLS()
-            ->toDisk('minio')
-          /*  ->addFormat($lowFormat, function (HLSVideoFilters $filters) {
-                $filters->resize(640, 480);
-            })
-            ->addFormat($midFormat, function (HLSVideoFilters $filters) {
-                $filters->resize(1280, 720);
-            })*/
+            ->toDisk('local')
+            /*  ->addFormat($lowFormat, function (HLSVideoFilters $filters) {
+                  $filters->resize(640, 480);
+              })
+              ->addFormat($midFormat, function (HLSVideoFilters $filters) {
+                  $filters->resize(1280, 720);
+              })*/
             ->addFormat($highFormat, function (HLSVideoFilters $filters) {
                 //$filters->resize(1920, 1080);
             })
@@ -52,5 +52,4 @@ class ConvertVideoForStreaming implements ShouldQueue
             'converted_for_streaming_at' => now(),
         ]);
     }
-
 }
